@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import fire from './firebase/firebase.js'
 import Login from './components/Login/Login.js';
+import Hero from './components/Hero/Hero.js';
 
 const App = () => {
 
@@ -9,7 +10,7 @@ const App = () => {
 	const [emailError, setEmailError] = useState('');
 	const [password, setPassword] = useState('');
 	const [passwordError, setPasswordError] = useState('');
-	const [hasAccount, setHasAccount] = useState('');
+	const [hasAccount, setHasAccount] = useState(true);
 
 	const clearInputs = () => {
 		setEmail('')
@@ -79,7 +80,13 @@ const App = () => {
 
 	return (
 		<div className="App">
-			<Login 
+		{
+			user ? (
+				<Hero handleLogout={handleLogout}/>
+			
+			) : (
+
+				<Login 
 				email={email} 
 				setEmail={setEmail} 
 				password={password} 
@@ -90,7 +97,9 @@ const App = () => {
 				setHasAccount={setHasAccount}
 				emailError={emailError}
 				passwordError={passwordError}
-			/>
+				/>
+			)
+		}
 		</div>
 	);
 }
