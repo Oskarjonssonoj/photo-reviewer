@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './styles/startpage.scss'
 import Albums from '../Albums/Albums'
+import Album from '../Albums/Album'
 import {db, storage} from '../../firebase/firebase'
+import { Switch, Route, Link } from 'react-router-dom';
 
 
 const Startpage = ({handleLogout}) => {
 
     const [newAlbum, setNewAlbum] = useState("")
+    const [albums, setAlbums] = useState([])
 
     const albumNameChange = (e) => {
         setNewAlbum(e.target.value)
@@ -21,6 +24,18 @@ const Startpage = ({handleLogout}) => {
         })
         setNewAlbum("")
     }
+
+
+    useEffect(() => {
+        const unmount = db.collection('albums').onSnapshot((snapshot) => {
+            const snapAlbum = []
+            snapshot.forEach(doc => {
+                snapAlbum.push({...doc.data(), id: doc.id});
+            })
+            setAlbums(snapAlbum)
+        })
+        return unmount;
+    }, [])
 
     return (
         <div className="startpage">
@@ -38,7 +53,17 @@ const Startpage = ({handleLogout}) => {
             </nav>
             
             <div className="albumsSection">
-                <Albums />
+                <div className="albums">
+                    <Switch>
+                        <Route exact path="/">
+                            <Albums albums={albums}/>
+                        </Route>
+                        <Route path="/:album">
+                            <Album />
+                        </Route>
+                                 
+                    </Switch>
+                </div>
             </div>
 
         </div>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from './firebase/firebase.js'
 import Login from './components/Login/Login.js';
 import Startpage from './components/Startpage/Startpage.js';
+import { Switch, Route, useHistory } from 'react-router-dom'
 
 const App = () => {
 
@@ -11,6 +12,8 @@ const App = () => {
 	const [password, setPassword] = useState('');
 	const [passwordError, setPasswordError] = useState('');
 	const [hasAccount, setHasAccount] = useState(true);
+
+	const history = useHistory();
 
 	const clearInputs = () => {
 		setEmail('')
@@ -26,6 +29,9 @@ const App = () => {
 		clearErrors();
 		firebase.auth()
 			.signInWithEmailAndPassword(email, password)
+			.then(res => {
+				history.push('/home')
+			})
 			.catch(err => {
 				switch(err.code){
 					case 'auth/invalid-email':
@@ -60,7 +66,9 @@ const App = () => {
 	}
 
 	const handleLogout = () => {
-		firebase.auth().signOut();
+		firebase.auth().signOut().then(res => {
+			history.push('/')
+		});
 	}
 
 	const authListener = () => {
@@ -82,22 +90,20 @@ const App = () => {
 		<div className="App">
 		{
 			user ? (
-				<Startpage handleLogout={handleLogout}/>
-			
+					<Startpage handleLogout={handleLogout}/>
 			) : (
-
-				<Login 
-				email={email} 
-				setEmail={setEmail} 
-				password={password} 
-				setPassword={setPassword}
-				handleLogin={handleLogin}	
-				handleSignUp={handleSignUp}
-				hasAccount={hasAccount}
-				setHasAccount={setHasAccount}
-				emailError={emailError}
-				passwordError={passwordError}
-				/>
+					<Login 
+					email={email} 
+					setEmail={setEmail} 
+					password={password} 
+					setPassword={setPassword}
+					handleLogin={handleLogin}	
+					handleSignUp={handleSignUp}
+					hasAccount={hasAccount}
+					setHasAccount={setHasAccount}
+					emailError={emailError}
+					passwordError={passwordError}
+					/>
 			)
 		}
 		</div>
