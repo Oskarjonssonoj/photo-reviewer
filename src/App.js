@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import fire from './firebase/firebase.js'
+import firebase from './firebase/firebase.js'
 import Login from './components/Login/Login.js';
-import Hero from './components/Hero/Hero.js';
+import Startpage from './components/Startpage/Startpage.js';
 
 const App = () => {
 
@@ -24,7 +24,7 @@ const App = () => {
 
 	const handleLogin = () => {
 		clearErrors();
-		fire.auth()
+		firebase.auth()
 			.signInWithEmailAndPassword(email, password)
 			.catch(err => {
 				switch(err.code){
@@ -43,7 +43,7 @@ const App = () => {
 
 	const handleSignUp = () => {
 		clearErrors();
-		fire.auth()
+		firebase.auth()
 			.createUserWithEmailAndPassword(email, password)
 			.catch(err => {
 				switch(err.code){
@@ -60,11 +60,11 @@ const App = () => {
 	}
 
 	const handleLogout = () => {
-		fire.auth().signOut();
+		firebase.auth().signOut();
 	}
 
 	const authListener = () => {
-		fire.auth().onAuthStateChanged(user => {
+		firebase.auth().onAuthStateChanged(user => {
 			if(user){
 				clearInputs()
 				setUser(user)
@@ -82,7 +82,7 @@ const App = () => {
 		<div className="App">
 		{
 			user ? (
-				<Hero handleLogout={handleLogout}/>
+				<Startpage handleLogout={handleLogout}/>
 			
 			) : (
 
