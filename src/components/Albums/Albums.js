@@ -24,6 +24,8 @@ const Albums = () => {
 
         {
             albums.map((album, index) => {
+
+                console.log(album)
                 return (
                     <Link to={`/home/albums/${album.id}`}>
                         <div className="eachAlbum" key={album.name}>

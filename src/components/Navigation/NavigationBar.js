@@ -1,14 +1,17 @@
 import React, { useState } from 'react'
 import { useAuth } from '../../contexts/ContextComp'
 import { db } from '../../firebase/firebase'
+import { useHistory } from 'react-router-dom'
 
 const NavigationBar = () => {
 
     // useState
     const [newAlbum, setNewAlbum] = useState("")
+    const [error, setError] = useState(false)
+    const history = useHistory()
 
     // Context
-    const { logout } = useAuth()
+    const { logout, currentUser } = useAuth()
 
     // General Functions
     const albumNameChange = (e) => {
@@ -19,13 +22,22 @@ const NavigationBar = () => {
         logout()
     }
 
-    const createAlbum = () => {
+    const createAlbum = async () => {
         if(!newAlbum) {
             return
         }
-        db.collection('albums').doc(newAlbum).set({
-            name: newAlbum
-        })
+
+        try {
+            const albumRef = await db.collection('albums').add({
+                name: newAlbum,
+                owner: currentUser.uid
+            })
+            history.push(`/home/albums/${albumRef.id}`)
+        } catch (e) {
+            setError(e.message)
+
+        }
+
         setNewAlbum("")
     }
 
