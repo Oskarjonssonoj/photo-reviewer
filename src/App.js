@@ -29,9 +29,6 @@ const App = () => {
 		clearErrors();
 		firebase.auth()
 			.signInWithEmailAndPassword(email, password)
-			.then(res => {
-				history.push('/home')
-			})
 			.catch(err => {
 				switch(err.code){
 					case 'auth/invalid-email':
