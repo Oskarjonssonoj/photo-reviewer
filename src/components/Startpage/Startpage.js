@@ -54,15 +54,15 @@ const Startpage = ({handleLogout}) => {
             
             <div className="albumsSection">
                 <div className="albums">
-                    <Switch>
-                        <Route exact path="/">
+                    
+                        {/* <Route exact path="/">
                             <Albums albums={albums}/>
                         </Route>
                         <Route path="/:album">
                             <Album />
                         </Route>
-                                 
-                    </Switch>
+                                  */}
+                    
                 </div>
             </div>
 
