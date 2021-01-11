@@ -17,6 +17,7 @@ const NewPhoto = ({currentAlbum}) => {
         setFile(e.target.files[0])
     }
 
+   
     const onUpload = async e => {
         e.preventDefault()
 
@@ -30,6 +31,8 @@ const NewPhoto = ({currentAlbum}) => {
         })
         await uploadTask.then( snapshot =>{
             console.log('file has been upload', snapshot)
+            setUploadProgress(null)
+            setFile(null)
             setAlertMsg({
                 type: 'success',
                 msg: "Image successfully uploaded"
@@ -60,7 +63,7 @@ const NewPhoto = ({currentAlbum}) => {
                 }
             </div>
                 {
-                    uploadProgress && (<Progress value={uploadProgress} size="xs" colorScheme="pink" />)
+                    uploadProgress !== null && (<Progress value={uploadProgress} size="xs" colorScheme="pink" />)
                 }
             <Button 
                 onClick={onUpload} 
