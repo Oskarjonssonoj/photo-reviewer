@@ -3,27 +3,32 @@ import { Link, useHistory } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
 import './styles/login.scss'
 
-const Login = (props) => {
+const Signup = (props) => {
 
     const history = useHistory()
-    const { login } = useAuth()
+    const { signup } = useAuth()
 
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [confirmPassword, setConfirmPassword] = useState("")
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        if(password !== confirmPassword) {
+            return setError("The password does not match")
+        }
 
         setError(null);
 
         try {
             setLoading(true)
-            await login(email, password)
-            history.push('/home/albums')
+            await signup(email, password)
+            history.push('/')
         } catch (e) {
-            setError("Email or password are invalid")
+            setError(e.message)
             setLoading(false)
         }
 
@@ -49,11 +54,18 @@ const Login = (props) => {
                         required 
                         value={password} 
                         onChange={(e) => setPassword(e.target.value)} 
+                    />
+
+                    <label>Confirm Password</label>
+                    <input 
+                        type="password" 
+                        required 
+                        value={confirmPassword} 
+                        onChange={(e) => setConfirmPassword(e.target.value)} 
                     /> 
                     <div className="btnContainer">
-                        <button disabled={loading}>Sign in</button>
-                        <p>Don't have an account? <Link to="/register">Sign up</Link></p>
-                        <p>Forgot your password? Click <Link to="/reset-password">Here</Link></p>
+                        <button disabled={loading}>Sign up</button>
+                        <p>Already have an account? <Link to="/">Log In</Link></p>
                     </div>
                 </form>
             </div>
@@ -61,4 +73,4 @@ const Login = (props) => {
     )
 }
 
-export default Login
+export default Signup

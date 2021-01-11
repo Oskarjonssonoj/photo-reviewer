@@ -8,7 +8,7 @@ const Album = () => {
     const [images, setImages] = useState([])
     const [albumName, setAlbumName] = useState("")
 
-    const match = useRouteMatch("/:album")
+    const match = useRouteMatch("/home/albums/:album")
     const { album } = match.params
 
     useEffect(() => {
@@ -23,17 +23,22 @@ const Album = () => {
     <>
         <div className="images">
         <h1>{albumName}</h1>
-        <p>Go back to <Link to="/">Home Page</Link></p>
+        <p>Go back to <Link to="/home/albums">Home Page</Link></p>
         {
-            images.map((image, index) => {
-                return (
-                    <>
-                        <div className="eachImage" key={image.name}>
-                            <img src={image.url}/>
-                        </div>
-                    </>
-                )
-            })
+            images.length === 0 ? (
+                "There are no picture in this album"
+            ) : (
+                images.map((image, index) => {
+                    return (
+                        <>
+                            <div className="eachImage" key={image.name}>
+                                <img src={image.url}/>
+                            </div>
+                        </>
+                    )
+                })
+            )
+
         }
             <div>
                 <NewPhoto currentAlbum={album} />

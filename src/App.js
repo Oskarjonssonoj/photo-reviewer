@@ -1,30 +1,34 @@
 import React from 'react';
 import Login from './components/Login/Login.js';
-import Startpage from './components/Startpage/Startpage.js';
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute.js';
+import Signup from './components/Signup/Signup';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Home from './components/Home/Home';
+import { BrowserRouter, Route } from 'react-router-dom'
 import AuthContextProvider from './contexts/ContextComp'
+import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute'
 
 const App = () => {
 
 	return (
 		<div className="App">
 			<BrowserRouter>
+				<AuthContextProvider>
+					
+					<Route exact path="/">
+						<Login />
+					</Route>
 
-			<AuthContextProvider>
-				<div>
-					<Switch>
+					<Route path="/register">
+						<Signup />
+					</Route>
 
-						<RestrictedRoute exact path="/">
-							<Startpage />
-						</RestrictedRoute>
+					<Route path="/reset-password">
+						<ForgotPassword />
+					</Route>
 
-						<Route path="/login">
-							<Login />
-						</Route>
-
-					</Switch>
-				</div>
+					<RestrictedRoute path="/home/:page">
+						<Home />
+					</RestrictedRoute>
 
 				</AuthContextProvider>
 			</BrowserRouter>
