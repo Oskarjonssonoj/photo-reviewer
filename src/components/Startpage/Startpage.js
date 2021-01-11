@@ -4,12 +4,15 @@ import Albums from '../Albums/Albums'
 import Album from '../Albums/Album'
 import {db, storage} from '../../firebase/firebase'
 import { Switch, Route, Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/ContextComp'
 
 
-const Startpage = ({handleLogout}) => {
+const Startpage = () => {
 
     const [newAlbum, setNewAlbum] = useState("")
     const [albums, setAlbums] = useState([])
+
+    const { logout } = useAuth()
 
     const albumNameChange = (e) => {
         setNewAlbum(e.target.value)
@@ -23,6 +26,10 @@ const Startpage = ({handleLogout}) => {
             name: newAlbum
         })
         setNewAlbum("")
+    }
+
+    const handleLogout = () => {
+        logout()
     }
 
 
@@ -55,13 +62,13 @@ const Startpage = ({handleLogout}) => {
             <div className="albumsSection">
                 <div className="albums">
                     
-                        {/* <Route exact path="/">
+                        <Route exact path="/">
                             <Albums albums={albums}/>
                         </Route>
                         <Route path="/:album">
                             <Album />
                         </Route>
-                                  */}
+                                 
                     
                 </div>
             </div>

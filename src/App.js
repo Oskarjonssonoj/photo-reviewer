@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import firebase from './firebase/firebase.js'
+import React from 'react';
 import Login from './components/Login/Login.js';
 import Startpage from './components/Startpage/Startpage.js';
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute.js';
 import AuthContextProvider from './contexts/ContextComp'
 
@@ -14,9 +13,9 @@ const App = () => {
 
 			<AuthContextProvider>
 				<div>
-					<Routes>
+					<Switch>
 
-						<RestrictedRoute path="/">
+						<RestrictedRoute exact path="/">
 							<Startpage />
 						</RestrictedRoute>
 
@@ -24,7 +23,7 @@ const App = () => {
 							<Login />
 						</Route>
 
-					</Routes>
+					</Switch>
 				</div>
 
 				</AuthContextProvider>
