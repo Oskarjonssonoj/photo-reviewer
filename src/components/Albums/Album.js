@@ -1,64 +1,30 @@
-import React, { useState, useEffect } from 'react'
-import { useRouteMatch, Link } from 'react-router-dom'
-import NewPhoto from '../Photos/NewPhoto'
-import './styles/albums.scss'
-import {db, storage} from '../../firebase/firebase'
-
-import { Box, Image, Text } from "@chakra-ui/react"
-import DropzoneUpload from '../Photos/DropzoneUpload'
+import React from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { BounceLoader } from 'react-spinners'
+import AllImages from './AllImages'
+import useAlbum from '../../hooks/useAlbum'
+import UploadImage from './UploadImage'
 
 const Album = () => {
+	const { albumId } = useParams()
+	const { album, images, loading } = useAlbum(albumId)
 
-    const [images, setImages] = useState([])
-    const [albumName, setAlbumName] = useState("")
+	return (
+		<>
+			<h2 className="mb-3">{album && album.title}</h2>
 
-    const match = useRouteMatch("/home/albums/:album")
-    const { album } = match.params
+			<Link to="/albums">Go back to all your albums</Link>
 
-    console.log('this is image', images)
+			<UploadImage albumId={albumId} />
 
-    useEffect(() => {
-        const unmount = db.collection('albums').doc(album).onSnapshot((doc) => {
-            setImages(doc.data().images || [])
-            setAlbumName(doc.data().name)
-        })
-        return unmount;
-    }, [])
+			<hr />
 
-
-    return (
-    <>
-        <div className="images">
-            <h1>{albumName}</h1>
-            <p>Go back to <Link to="/home/albums">Home Page</Link></p>
-            {/* <div>
-                <NewPhoto currentAlbum={album} />
-            </div> */}
-            <DropzoneUpload />
-            <div className="imgContainer">
-                {
-                    images.map((image, index) => {
-                        return (
-                            <>
-                                <Box w="200px" h="300px" borderWidth="1px" borderRadius="lg" overflow="hidden" bg="white" m={4}>
-                                    <Image src={image.url} alt="Segun Adebayo" boxSize="200px" objectFit="cover" />
-                                    <Box
-                                        mt="1"
-                                        fontWeight="semibold"
-                                        lineHeight="tight"
-                                        isTruncated
-                                         >
-                                        <Text fontSize="xs">{image.name}</Text>
-                                     </Box>
-                                </Box>
-                            </>
-                        )
-                    })
-                }
-            </div>
-        </div>
-    </>
-    )
+			{loading
+				? (<BounceLoader color={"#888"} size={20} />)
+				: (<AllImages images={images} />)
+			}
+		</>
+	)
 }
 
 export default Album

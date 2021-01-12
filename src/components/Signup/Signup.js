@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
 import './styles/login.scss'
 
 const Signup = (props) => {
 
-    const history = useHistory()
+    const navigate = useNavigate()
     const { signup } = useAuth()
 
     const [error, setError] = useState(null)
@@ -26,7 +26,7 @@ const Signup = (props) => {
         try {
             setLoading(true)
             await signup(email, password)
-            history.push('/')
+            navigate('/albums')
         } catch (e) {
             setError(e.message)
             setLoading(false)
@@ -65,7 +65,7 @@ const Signup = (props) => {
                     /> 
                     <div className="btnContainer">
                         <button disabled={loading}>Sign up</button>
-                        <p>Already have an account? <Link to="/">Log In</Link></p>
+                        <p>Already have an account? <Link to="/login">Log In</Link></p>
                     </div>
                 </form>
             </div>

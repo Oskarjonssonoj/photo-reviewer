@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
 import './styles/login.scss'
 
 const Login = (props) => {
 
-    const history = useHistory()
+    const navigate = useNavigate()
     const { login } = useAuth()
 
     const [error, setError] = useState(null)
@@ -21,7 +21,7 @@ const Login = (props) => {
         try {
             setLoading(true)
             await login(email, password)
-            history.push('/home/albums')
+            navigate('/albums')
         } catch (e) {
             setError("Email or password are invalid")
             setLoading(false)
