@@ -22,7 +22,7 @@ const ForgotPassword = () => {
             await resetPassword(email)
             setSuccess(true)
         } catch (e) {
-            setError("Something went wrong, please check your email adress")
+            setError("Something went wrong, please check if you typed in the right password")
             setLoading(false)
         }
 
@@ -31,7 +31,8 @@ const ForgotPassword = () => {
     return (
         <div className="login">
             <div className="loginContainer">
-                <p className="errorMsg">{error}</p> 
+                <p className="errorMsg">{error}</p>
+                <p>Please enter your email address and press send to recieve a link to restore your password</p> 
                 { 
                     !success && 
 
@@ -47,7 +48,7 @@ const ForgotPassword = () => {
                         
                         <div className="btnContainer">
                             <button disabled={loading}>Send</button>
-                            <p>Back to <Link to="/">Log In</Link></p>
+                            <p>Back to <Link to="/login">Log In</Link></p>
                         </div>
                     </form>
 
@@ -61,7 +62,7 @@ const ForgotPassword = () => {
                             <p>Please check your email for further instructions</p>
                         </div>
 
-                        <Link to="/" className="text-center mt-2">Log In</Link>
+                        <Link to="/login" className="text-center mt-2">Log In</Link>
                     </div> 
                 }
             </div>
