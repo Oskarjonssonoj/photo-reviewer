@@ -10,6 +10,7 @@ import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Home from './components/Home/Home';
 import Album from './components/Albums/Album';
 import Albums from './components/Albums/Albums';
+import CustomerAlbum from './components/Albums/CustomerAlbum';
 import CreateNewAlbum from './components/Albums/CreateNewAlbum.js';
 import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute'
 import NavigationBar from './components/Navigation/NavigationBar.js';
@@ -63,6 +64,12 @@ const App = () => {
 										<Album />
 									</RestrictedRoute>
 								</RestrictedRoute>
+
+								
+								{/* Customer Routes */}
+								<Route path="/albums/:albumId/review">
+									<CustomerAlbum />
+								</Route>
 
 								{/* If Route not found */}
 								<Route path="*" element={<NotFound />} />
