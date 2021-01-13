@@ -5,15 +5,22 @@ import './styles/login.scss'
 
 const Signup = (props) => {
 
-    const navigate = useNavigate()
-    const { signup } = useAuth()
-
+    // States
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    
+    // Hooks
+    const navigate = useNavigate()
 
+    // Contexts
+    const { signup } = useAuth()
+
+    // GENERAL FUNCTIONS
+
+    // Handle the submitting of signup/registration
     const handleSubmit = async (e) => {
         e.preventDefault()
 

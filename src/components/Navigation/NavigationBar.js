@@ -9,7 +9,9 @@ const NavigationBar = () => {
     // Context
     const { logout, currentUser } = useAuth()
 
-    // General Functions
+   	// GENERAL FUNCTIONS
+
+    // Handle the submitting of logout
     const handleLogout = () => {
         logout()
     }
