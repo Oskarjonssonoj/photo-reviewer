@@ -5,7 +5,7 @@ import AllCustomerImages from './AllCustomerImages'
 
 const ReviewAlbum = () => {
 	const { albumId } = useParams()
-	const { album, images, loading} = useAlbum(albumId)
+	const { album, loading} = useAlbum(albumId)
 
 	return (
 		<>	
@@ -14,7 +14,7 @@ const ReviewAlbum = () => {
 				: album && 
 					<>
 						<h1>{album.title}</h1>
-						<AllCustomerImages images={images} owner={album.owner} title={album.title} />
+						<AllCustomerImages images={album.images} owner={album.owner} title={album.title} />
 					</>
 			}
 		</>

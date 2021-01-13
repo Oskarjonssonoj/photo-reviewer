@@ -24,6 +24,7 @@
     "react-scripts": "4.0.1",
     "react-spinners": "^0.10.4",
     "simple-react-lightbox": "^3.5.3",
+    "unique-names-generator": "^4.3.1",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

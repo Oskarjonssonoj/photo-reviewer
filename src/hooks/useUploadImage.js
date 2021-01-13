@@ -2,11 +2,15 @@ import { useState, useEffect } from 'react';
 import { db, storage } from '../firebase/firebase';
 import { useAuth } from '../contexts/ContextComp'
 
+
 const useUploadImage = (images, albumId = null) => {
+
+	// States
 	const [uploadProgress, setUploadProgress] = useState(null);
 	const [error, setError] = useState(null);
 	const [isSuccess, setIsSuccess] = useState(false);
 	
+	// Contexts
 	const { currentUser } = useAuth()
 
 	useEffect(() => {
@@ -23,17 +27,18 @@ const useUploadImage = (images, albumId = null) => {
 
 
 		if (albumId) {
+			
 			images.forEach(image => {
 
 				const fileRef = storage.ref(`images/${currentUser.uid}/${image.name}`);
 				
-				const uploadTask = fileRef.put(image);
+				const generateUploadRef = fileRef.put(image);
 				
-				uploadTask.on('state_changed', taskSnapshot => {
+				generateUploadRef.on('state_changed', taskSnapshot => {
 					setUploadProgress(Math.round((taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100));
 				});
 				
-				uploadTask.then(async snapshot => {
+				generateUploadRef.then(async snapshot => {
 		
 					const url = await snapshot.ref.getDownloadURL();
 		
@@ -61,6 +66,7 @@ const useUploadImage = (images, albumId = null) => {
 					setError(false);
 					setIsSuccess(true);
 					setUploadProgress(null);
+
 				}).catch(error => {
 					setError({
 						type: "warning",
@@ -68,6 +74,35 @@ const useUploadImage = (images, albumId = null) => {
 					});
 				});
 			});
+
+		} else {
+
+			(async () => {
+
+				const { uniqueNamesGenerator, adjectives, colors, animals } = require('unique-names-generator');
+				
+				const shortName = uniqueNamesGenerator({
+				dictionaries: [adjectives, animals, colors],
+				length: 2
+				}); 
+
+				try {
+					await db.collection('albums').add({
+						images: images,
+						title: shortName,
+						owner: currentUser.uid,
+					})
+								
+					setError(false)
+					setIsSuccess(true)
+					setUploadProgress(null)
+
+				} catch (err) {
+					setError(true)
+					setIsSuccess(false)
+					setUploadProgress(null)
+				}
+			})();
 		}
 			
 	}, [images, currentUser, albumId]);

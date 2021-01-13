@@ -6,75 +6,81 @@ import { useAuth } from '../../contexts/ContextComp'
 import useDeleteImage from '../../hooks/useDeleteImage'
 import useUploadImage from '../../hooks/useUploadImage';
 
-const ImagesGrid = ({ images, edit }) => {
+const AllImages = ({ images, edit }) => {
 
-	const [selectedPhotos, setSelectedPhotos] = useState([])
+	// States
+	const [newImages, setNewImages] = useState([])
 	const [checkedImage, setCheckedImage] = useState({})
 	const [deleteImage, setDeleteImage] = useState(null);
-	const [imagesForUpload, setImagesForUpload] = useState(null)
-	const [errorMessage, setErrorMessage] = useState(false)
+	const [newImageArray, setNewImageArray] = useState(null)
+	const [errorText, setErrorText] = useState(false)
 	
-	const { error, isSuccess } = useUploadImage(imagesForUpload);
-	const { currentUser } = useAuth()
+	// Hooks
 	const navigate = useNavigate()
+	const { error, isSuccess } = useUploadImage(newImageArray);
 
+	// Contexts
+	const { currentUser } = useAuth()
+
+	// Effects
 	useEffect(() => {
 		if (error) {
-			setErrorMessage("An error occurred and the image could not be uploaded.")
+			setErrorText("Unexpected error, could not upload and create new album.")
 		} else if (isSuccess) {
-			// Prevent duplicate upload
-			setImagesForUpload(null);
+			setNewImageArray(null);
 			navigate('/albums')
 		} 
 	}, [error, isSuccess]);
 		
-		
+	// GENERAL FUNCTIONS -->
+
+	// Delete picture/pictures
 	const handleDeleteImage = (image) => {
 		setDeleteImage(image);
 	}
-
 	useDeleteImage(deleteImage);
 
+
+	// Handling all the checked boxed and storing in new array
 	const handleCheckedImage = (e) => {
 		
-		const imageNameUrl = e.target.name
-		setCheckedImage({...checkedImage, [imageNameUrl] : e.target.checked })
+		setCheckedImage({...checkedImage, [e.target.name] : e.target.checked })
 		
-		let newAlbum = selectedPhotos
-			if (newAlbum.includes(imageNameUrl)) {
-				for (let i = 0; i < newAlbum.length; i++){     
-					newAlbum[i] === imageNameUrl && newAlbum.splice(i, 1) 			
+			if (newImages.includes(e.target.name)) {
+				for (let i = 0; i < newImages.length; i++){     
+					newImages[i] === e.target.name && newImages.splice(i, 1) 			
 				}
 			} else {
-				newAlbum.push(imageNameUrl)
+				newImages.push(e.target.name)
 			}
-		setSelectedPhotos(newAlbum);
+		setNewImages(newImages);
 	}
 
-	const handleCreateNewAlbum = (newImages) => {
+	// Create new album based on picked pictures
+	const creatAlbum = (checkedImages) => {
 		let imagesToSave = []
-		let allImages = images
 
-		allImages.forEach(imgItem => {
-			if (newImages.includes(imgItem.url)) {
+		images.forEach(imgItem => {
+			if (checkedImages.includes(imgItem.url)) {
 				imagesToSave.push(imgItem)
 			}
 		})
 
-		setImagesForUpload(imagesToSave)
+		setNewImageArray(imagesToSave)
 	}
 
 	return (
 		<SRLWrapper>
-		<p>{errorMessage}</p>
+		<p>{errorText}</p>
 			<Row className="my-3">
 				{images.map(image => (
 					<Col sm={6} md={4} lg={3} key={image.id}>
-						<Card className="mb-3">
-							<a href={image.url} title="View image in lightbox" data-attribute="SRL">
+						<Card className="mb-3 text-center">
+							<a href={image.url} title="Lightbox mode" data-attribute="SRL">
 								<Card.Img variant="top" src={image.url} title={image.name} />
-								{currentUser && 
+								{currentUser && edit &&
 									<input
+										className="mt-4"
 										type="checkbox"
 										name={image.url}
 										checked={checkedImage[image.url]}
@@ -83,12 +89,12 @@ const ImagesGrid = ({ images, edit }) => {
 								}
 							</a>
 							<Card.Body>
-								<Card.Text className="text-muted small">
+								<Card.Text className="text-center small">
 									{image.name} ({Math.round(image.size/1024)} kb)
 								</Card.Text>
 								{
-									currentUser.uid === image.owner && (
-										<Button variant="danger" size="sm" onClick={() => {
+									image.owner === currentUser.uid && (
+										<Button className="btn-danger" size="sm" onClick={() => {
 											handleDeleteImage(image)
 										}}>
 											Delete
@@ -102,12 +108,12 @@ const ImagesGrid = ({ images, edit }) => {
 			</Row>
 			<Row>
 				<Col>
-					{currentUser && selectedPhotos && selectedPhotos.length > 0 &&		
-						<Button 
-							className="btn button__primary" 
-							onClick={() => handleCreateNewAlbum(selectedPhotos)}
+					{currentUser && newImages && newImages.length > 0 &&		
+						<Button  
+							onClick={() => creatAlbum(newImages)}
+							className="btn btn-success"
 						>
-							Create a new album
+							Create and upload a new album
 						</Button>
 					}
 				</Col>				
@@ -116,4 +122,4 @@ const ImagesGrid = ({ images, edit }) => {
 	)
 }
 
-export default ImagesGrid
+export default AllImages
