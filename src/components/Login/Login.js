@@ -5,14 +5,19 @@ import './styles/login.scss'
 
 const Login = (props) => {
 
-    const navigate = useNavigate()
-    const { login } = useAuth()
-
+    // States
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+    // Hooks
+    const navigate = useNavigate()
+    const { login } = useAuth()
+
+    // GENERAL FUNCTIONS
+
+    // Handle the submitting of login
     const handleSubmit = async (e) => {
         e.preventDefault()
 

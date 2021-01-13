@@ -5,13 +5,18 @@ import './styles/login.scss'
 
 const ForgotPassword = () => {
 
-    const { resetPassword } = useAuth()
-
+    // States
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState(false)
     const [email, setEmail] = useState("")
+    
+    // Contexts
+    const { resetPassword } = useAuth()
 
+    // GENERAL FUNCTIONS
+
+    // Handle the submitting of forgotten password
     const handleSubmit = async (e) => {
         e.preventDefault()
 
