@@ -2,13 +2,16 @@ import { useEffect, useState } from 'react';
 import { db } from '../firebase/firebase';
 
 const useAlbum = (albumId) => {
+
+	// States
 	const [album, setAlbum] = useState();
 	const [loading, setLoading] = useState(true);
 
+	// Effects
 	useEffect(() => {
 		setLoading(true)
 
-		const unsubscribe = db.collection('albums').doc(albumId).onSnapshot(doc => {
+		const unmount = db.collection('albums').doc(albumId).onSnapshot(doc => {
 			setAlbum({
 				id: doc.id,
 				...doc.data()
@@ -17,7 +20,7 @@ const useAlbum = (albumId) => {
 
 		setLoading(false)
 
-		return unsubscribe
+		return unmount
 
 	}, [albumId])
 

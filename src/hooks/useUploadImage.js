@@ -13,6 +13,7 @@ const useUploadImage = (images, albumId = null) => {
 	// Contexts
 	const { currentUser } = useAuth()
 
+	// Effects
 	useEffect(() => {
 		if (!images) {
 			setUploadProgress(null);

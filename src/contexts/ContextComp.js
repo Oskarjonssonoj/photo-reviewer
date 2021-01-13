@@ -29,12 +29,12 @@ const AuthContextProvider = (props) => {
     }
 
     useEffect(() => {
-        const unsubscribe = auth.onAuthStateChanged(user => {
+        const unmount = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
         })
 
-        return unsubscribe;
+        return unmount;
 
     }, [])
 

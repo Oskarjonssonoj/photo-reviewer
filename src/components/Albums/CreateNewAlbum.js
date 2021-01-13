@@ -5,16 +5,26 @@ import { db } from '../../firebase/firebase'
 import { useAuth } from '../../contexts/ContextComp'
 
 const CreateNewAlbum = () => {
+
+	// States
 	const [error, setError] = useState(false)
 	const [loading, setLoading] = useState(false)
 	const [title, setTitle] = useState("")
-	const { currentUser } = useAuth()
+
+	// Hooks
 	const navigate = useNavigate()
 
+	// Contexts
+	const { currentUser } = useAuth()
+
+	// GENERAL FUNCTIONS
+
+	// Dynamicly changes the title state
 	const handleTitleChange = (e) => {
 		setTitle(e.target.value)
 	}
 
+	// Submit and create new album
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 

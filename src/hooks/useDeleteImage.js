@@ -5,14 +5,20 @@ import { useAuth } from '../contexts/ContextComp'
 
 const useDeleteImage = image => {
 
+	// States
 	const [isSuccess, setIsSuccess] = useState(false)
 	const [error, setError] = useState(false)
 
+	// Hooks
 	const {albumId} = useParams()
+
+	// Contexts
 	const { currentUser } = useAuth()
 
+	// Effects
 	useEffect(() => {
-		// Check if the image exist, if not just return
+
+		// Check if the image exist, if not just return and ignore
 		if (!image) {
 			return;
 		}
@@ -34,14 +40,14 @@ const useDeleteImage = image => {
 					images: currentImages,
 				});
 
-			} catch (err) {
-				error(true)
-				isSuccess(false)
+			} catch (error) {
+				setError(true)
+				setIsSuccess(false)
 			}
 		})();
 	}, [image]);
 
-	return {}
+	return {error, isSuccess}
 }
 
 export default useDeleteImage

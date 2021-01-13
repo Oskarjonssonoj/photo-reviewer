@@ -3,9 +3,11 @@ import { db } from '../firebase/firebase'
 
 const useSelectedImages = (images, owner, title) => {
 
+	// States
     const [selectedError, setSelectedError] = useState(false)
     const [selectedSuccess, setSelectedSuccess] = useState(false)
 
+	// Effects
     useEffect(() => {
         if (!images) {
 			setSelectedError(null);
@@ -15,19 +17,21 @@ const useSelectedImages = (images, owner, title) => {
         }
         
         (async () => {
-			const submittetTitle = `${title} - ${Math.floor(Math.random() * 100)}` 
+			const submittetTitle = `${Math.floor(Math.random() * 100)} -> ${title}` 
 
 			try {
 				
 				await db.collection('albums').add({
-					images: images,
-					title: submittetTitle,
 					owner,
+					title: submittetTitle,
+					images: images,
 				})
 							
 				setSelectedError(false)
 				setSelectedSuccess(true)
-			} catch (err) {
+
+			} catch (error) {
+
 				setSelectedError(true)
 				setSelectedSuccess(false)
 			}

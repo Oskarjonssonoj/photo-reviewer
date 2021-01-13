@@ -62,7 +62,6 @@ const Album = () => {
 		}
 		setErrorMsg(false)
 		try {
-			// Update album title in database
 			await db.collection('albums').doc(album.id).update({
 				title: newTitle,
 			});

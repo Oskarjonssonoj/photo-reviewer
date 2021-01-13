@@ -6,8 +6,12 @@ import useAlbums from '../../hooks/useAlbums'
 import AllAlbums from './AllAlbums'
 
 const Albums = () => {
-	const { currentUser } = useAuth()
+
+	// Hooks
 	const { albums, loading } = useAlbums()
+
+	// Contexts
+	const { currentUser } = useAuth()
 
 	return (
 		<>

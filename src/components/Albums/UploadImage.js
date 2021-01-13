@@ -5,10 +5,15 @@ import { useDropzone } from 'react-dropzone';
 import useUploadImage from '../../hooks/useUploadImage';
 
 const UploadImage = ({ albumId }) => {
+
+	// States
 	const [uploadImage, setUploadImage] = useState(null);
 	const [message, setMessage] = useState(null);
+
+	// Hooks
 	const { uploadProgress, error, isSuccess } = useUploadImage(uploadImage, albumId);
 
+	// Effects
 	useEffect(() => {
 		if (error) {
 			setMessage({
