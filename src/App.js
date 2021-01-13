@@ -68,10 +68,6 @@ const App = () => {
 										</RestrictedRoute>
 									</RestrictedRoute>
 
-<<<<<<< HEAD
-									{/* If Route not found */}
-									<Route path="*" element={<NotFound />} />
-=======
 								
 								{/* Customer Routes */}
 								<Route path="/albums/:albumId/review">
@@ -80,7 +76,6 @@ const App = () => {
 
 								{/* If Route not found */}
 								<Route path="*" element={<NotFound />} />
->>>>>>> main
 
 								</Routes>
 							</Container>
