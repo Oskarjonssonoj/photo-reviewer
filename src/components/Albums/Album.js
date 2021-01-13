@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { BounceLoader } from 'react-spinners'
+import { Button } from 'react-bootstrap'
 import AllImages from './AllImages'
 import useAlbum from '../../hooks/useAlbum'
 import UploadImage from './UploadImage'
 
 const Album = () => {
+
+	const [invite, setInvite] = useState(null)
+
 	const { albumId } = useParams()
 	const { album, images, loading } = useAlbum(albumId)
+
+	const handleInvite = () => {
+		const href = window.location.href
+        setInvite(`${href}/review`);
+    };
 
 	return (
 		<>
@@ -23,6 +32,22 @@ const Album = () => {
 				? (<BounceLoader color={"#888"} size={20} />)
 				: (<AllImages images={images} />)
 			}
+
+			{images.length > 0 &&
+				<div className="button-wrapper">
+					<Button 
+						className="btn button__secondary"
+						disabled={loading} 
+						onClick={handleInvite}
+						>Invite link
+					</Button>											
+				</div>
+			}		
+
+			{
+				invite && 
+				<p>{invite}</p>
+			}			
 		</>
 	)
 }
