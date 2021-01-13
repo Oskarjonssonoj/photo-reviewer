@@ -62,7 +62,7 @@ const useUploadImage = (image, albumId = null) => {
 			});
 		});
 	
-	}, [image, currentUser]);
+	}, [image, currentUser, albumId]);
 
 	return { uploadProgress, uploadedImage, error, isSuccess };
 }
