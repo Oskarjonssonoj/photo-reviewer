@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap'
 import AllImages from './AllImages'
 import useAlbum from '../../hooks/useAlbum'
 import UploadImage from './UploadImage'
+import { useAuth } from '../../contexts/ContextComp'
 
 const Album = () => {
 
@@ -12,6 +13,7 @@ const Album = () => {
 
 	const { albumId } = useParams()
 	const { album, images, loading } = useAlbum(albumId)
+	const { currentUser } = useAuth()
 
 	const handleInvite = () => {
 		const href = window.location.href
@@ -20,34 +22,39 @@ const Album = () => {
 
 	return (
 		<>
-			<h2 className="mb-3">{album && album.title}</h2>
-
-			<Link to="/albums">Go back to all your albums</Link>
-
-			<UploadImage albumId={albumId} />
-
-			<hr />
-
-			{loading
-				? (<BounceLoader color={"#888"} size={20} />)
-				: (<AllImages images={images} />)
-			}
-
-			{images.length > 0 &&
-				<div className="button-wrapper">
-					<Button 
-						className="btn button__secondary"
-						disabled={loading} 
-						onClick={handleInvite}
-						>Invite link
-					</Button>											
-				</div>
-			}		
-
 			{
-				invite && 
-				<p>{invite}</p>
-			}			
+				loading
+
+				? <BounceLoader color={"#888"} size={20} />
+				: album && currentUser &&
+					<>
+						<h2 className="mb-3">{album && album.title}</h2>
+						
+
+						<Link to="/albums">Go back to all your albums</Link>
+						
+						{
+							invite && 
+							<p>{invite}</p>
+						}
+
+						<UploadImage albumId={albumId} />
+
+						<hr />
+						<AllImages images={album.images} />
+
+						{album.images.length > 0 &&
+							<div className="button-wrapper">
+								<Button 
+									className="btn button__secondary"
+									disabled={loading} 
+									onClick={handleInvite}
+									>Invite link
+								</Button>											
+							</div>
+						}			
+					</>
+			}		
 		</>
 	)
 }

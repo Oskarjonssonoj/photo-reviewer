@@ -34,11 +34,11 @@ const UploadImage = ({ albumId }) => {
 			return;
 		}
 
-		setUploadImage(acceptedFiles[0]);
+		setUploadImage(acceptedFiles);
 	}, []);
 
-	const { getRootProps, getInputProps, isDragActive, acceptedFiles, isDragAccept, isDragReject } = useDropzone({
-		accept: 'image/gif, image/jpeg, image/png',
+	const { getInputProps, getRootProps, isDragAccept, isDragActive, isDragReject } = useDropzone({
+		accept: 'image/jpeg, image/png',
 		onDrop
 	});
 
@@ -50,15 +50,6 @@ const UploadImage = ({ albumId }) => {
 					? isDragAccept ? <p>Drop it</p> : <p>The file that you've choosen is not available here.</p>
 					: <p>Click here to upload a picture or drag and drop the picture here.</p>
 			}
-			{acceptedFiles && (
-				<div className="accepted-files mt-2">
-					<ul className="list-unstyled">
-						{acceptedFiles.map(file => (
-							<li key={file.name}><small>{file.name} ({Math.round(file.size / 1024)} kb)</small></li>
-						))}
-					</ul>
-				</div>
-			)}
 
 			{uploadProgress !== null && (<ProgressBar variant="success" animated now={uploadProgress} />)}
 

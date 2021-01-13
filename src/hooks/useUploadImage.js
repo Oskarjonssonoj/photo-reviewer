@@ -2,17 +2,16 @@ import { useState, useEffect } from 'react';
 import { db, storage } from '../firebase/firebase';
 import { useAuth } from '../contexts/ContextComp'
 
-const useUploadImage = (image, albumId = null) => {
+const useUploadImage = (images, albumId = null) => {
 	const [uploadProgress, setUploadProgress] = useState(null);
-	const [uploadedImage, setUploadedImage] = useState(null);
 	const [error, setError] = useState(null);
 	const [isSuccess, setIsSuccess] = useState(false);
+	
 	const { currentUser } = useAuth()
 
 	useEffect(() => {
-		if (!image) {
+		if (!images) {
 			setUploadProgress(null);
-			setUploadedImage(null);
 			setError(null);
 			setIsSuccess(false);
 
@@ -23,48 +22,57 @@ const useUploadImage = (image, albumId = null) => {
 		setIsSuccess(false);
 
 
-		const fileRef = storage.ref(`images/${currentUser.uid}/${image.name}`);
+		if (albumId) {
+			images.forEach(image => {
 
-		const uploadTask = fileRef.put(image);
+				const fileRef = storage.ref(`images/${currentUser.uid}/${image.name}`);
+				
+				const uploadTask = fileRef.put(image);
+				
+				uploadTask.on('state_changed', taskSnapshot => {
+					setUploadProgress(Math.round((taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100));
+				});
+				
+				uploadTask.then(async snapshot => {
+		
+					const imageUrl = await snapshot.ref.getDownloadURL();
+		
+					const img = {
+						path: snapshot.ref.fullPath,
+						name: image.name,
+						owner: currentUser.uid,
+						type: image.type,
+						size: image.size,
+						imageUrl,
+					};
 
-		uploadTask.on('state_changed', taskSnapshot => {
-			setUploadProgress(Math.round((taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) * 100));
-		});
+					let collectedImages
 
-		uploadTask.then(async snapshot => {
+					await db.collection('albums').doc(albumId).get().then(doc => {
+						const data = doc.data();
+						collectedImages = data.images
+					})
 
-			const url = await snapshot.ref.getDownloadURL();
+					
+					await db.collection('albums').doc(albumId).update({
+						images: [...collectedImages, img],
+					});
 
-			const img = {
-				name: image.name,
-				owner: currentUser.uid,
-				path: snapshot.ref.fullPath,
-				size: image.size,
-				type: image.type,
-				url,
-			};
-
-			if (albumId) {
-				img.album = db.collection('albums').doc(albumId)
-			}
-
-			await db.collection('images').add(img)
-
-			setIsSuccess(true);
-			setUploadProgress(null);
-			setUploadedImage(img);
-			setIsSuccess(true);
-
-		}).catch(error => {
-			setError({
-				type: "warning",
-				msg: error.code
+					setError(false);
+					setIsSuccess(true);
+					setUploadProgress(null);
+				}).catch(error => {
+					setError({
+						type: "warning",
+						msg: error.code
+					});
+				});
 			});
-		});
-	
-	}, [image, currentUser, albumId]);
+		}
+			
+	}, [images, currentUser, albumId]);
 
-	return { uploadProgress, uploadedImage, error, isSuccess };
+	return { uploadProgress, error, isSuccess };
 }
 
 export default useUploadImage;

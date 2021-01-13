@@ -24,14 +24,20 @@ const CreateNewAlbum = () => {
 
 		setError(false)
 		setLoading(true)
-
+		
 		try {
-			const docRef = await db.collection('albums').add({
+
+			setLoading(true)
+
+			await db.collection('albums').add({
+				images: [],
 				title,
-				owner: currentUser.uid,
+				owner: currentUser.uid
 			})
 
-			navigate(`/albums/${docRef.id}`)
+			setLoading(true)
+			navigate(`/albums`)
+			
 		} catch (e) {
 			setError(e.message)
 			setLoading(false)
