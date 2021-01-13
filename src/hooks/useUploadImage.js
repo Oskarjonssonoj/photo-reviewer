@@ -35,7 +35,7 @@ const useUploadImage = (images, albumId = null) => {
 				
 				uploadTask.then(async snapshot => {
 		
-					const imageUrl = await snapshot.ref.getDownloadURL();
+					const url = await snapshot.ref.getDownloadURL();
 		
 					const img = {
 						path: snapshot.ref.fullPath,
@@ -43,7 +43,7 @@ const useUploadImage = (images, albumId = null) => {
 						owner: currentUser.uid,
 						type: image.type,
 						size: image.size,
-						imageUrl,
+						url,
 					};
 
 					let collectedImages
