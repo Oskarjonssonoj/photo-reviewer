@@ -1,13 +1,11 @@
 .albums {
-    height: 92%;
     
     h2, a {
         font-family: 'Abel', sans-serif;
     }
 
     .albumsSection {
-        max-width: 1200px;
-        margin: 0 auto;
+        margin: 2rem 10rem 4rem 10rem;
 
 
         .albumContainer{
@@ -17,7 +15,6 @@
 
             .card{
                 display: flex;
-                align-items: center;
                 align-items: center;
                 min-width: 8rem;
                 height: 3rem;
@@ -32,7 +29,7 @@
     
                 div{
                     display: flex;
-                    justify-content: start;
+                    justify-content: flex-start;
                     width: 100%;
                     align-items: center;
                     height: 100%;

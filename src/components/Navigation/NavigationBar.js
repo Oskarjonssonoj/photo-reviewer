@@ -31,16 +31,18 @@ const NavigationBar = () => {
 					{
 						currentUser ? (
 							<>
-								<Link className="links" to="/albums" m="5">Album</Link>
-								<Link className="links" to="/" onClick={handleLogout} >Logout </Link>
-								<div>{user.email}</div>
+								<Link className="links" to="/albums" m="5"><button>Album</button></Link>
+								<Link className="links" to="/" onClick={handleLogout} ><button>Logout</button></Link>
+								<div>
+									<p>{user.email}</p>
+								</div>
 							</>
 						) : (
-							<Button className="nav-link">
+							<button className="nav-link">
 								<Link to="/">
 									Login
 								</Link>
-							</Button>
+							</button>
 						)
 					}
 					</div>
