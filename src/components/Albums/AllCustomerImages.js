@@ -7,8 +7,10 @@ import useSelectedImages from '../../hooks/useSelectedImages';
 const AllCustomerImages = ({ images, owner, title }) => {
 
 	// States
-	const [newImages, setNewImages] = useState([])
-	const [checkedImage, setCheckedImage] = useState({})
+	const [likedImages, setLikedImages] = useState([])
+	const [dislikedImages, setDislikedImages] = useState([])
+	const [dislikedCheckedImage, setDislikedCheckedImage] = useState({})
+	const [likedCheckedImages, setLikedCheckedImages] = useState({})
 	const [newImageArray, setNewImageArray] = useState(null)
 	const [errorText, setErrorText] = useState(false)
 
@@ -29,18 +31,33 @@ const AllCustomerImages = ({ images, owner, title }) => {
 	// GENERAL FUNCTIONS -->
 
 	// Handling all the checked boxed and storing in new array
-	const handleCheckedImage = (e) => {
+	const handleLikedCheckedImage = (e) => {
 		
-		setCheckedImage({...checkedImage, [e.target.name] : e.target.checked })
+		setLikedCheckedImages({...likedCheckedImages, [e.target.name] : e.target.checked })
 		
-			if (newImages.includes(e.target.name)) {
-				for (let i = 0; i < newImages.length; i++){     
-					newImages[i] === e.target.name && newImages.splice(i, 1) 			
+			if (likedImages.includes(e.target.name)) {
+				for (let i = 0; i < likedImages.length; i++){     
+					likedImages[i] === e.target.name && likedImages.splice(i, 1) 			
 				}
 			} else {
-				newImages.push(e.target.name)
+				likedImages.push(e.target.name)
 			}
-		setNewImages(newImages);
+		setLikedImages(likedImages);
+	}
+
+	// Handling all the checked boxed and storing in new array
+	const handleDislikedCheckedImage = (e) => {
+		
+		setDislikedCheckedImage({...dislikedCheckedImage, [e.target.name] : e.target.checked })
+		
+			if (dislikedImages.includes(e.target.name)) {
+				for (let i = 0; i < dislikedImages.length; i++){     
+					dislikedImages[i] === e.target.name && dislikedImages.splice(i, 1) 			
+				}
+			} else {
+				dislikedImages.push(e.target.name)
+			}
+		setDislikedImages(dislikedImages);
 	}
 
 	// Create new album based on rated pictures
@@ -56,6 +73,8 @@ const AllCustomerImages = ({ images, owner, title }) => {
 		setNewImageArray(imagesToSave)
 	}
 
+	console.log(images)
+
 	return (
 		<SRLWrapper>
 		<p>{errorText}</p>
@@ -70,12 +89,23 @@ const AllCustomerImages = ({ images, owner, title }) => {
 								<Card.Text className="small">
 									{image.name} ({Math.round(image.size/1024)} kb)
 								</Card.Text>
-								<input
+								<label>Like
+									<input
 										type="checkbox"
 										name={image.url}
-										checked={checkedImage[image.url]}
-										onChange={handleCheckedImage}
+										checked={likedCheckedImages[image.url]}
+										onChange={handleLikedCheckedImage}
 									/>
+								</label>
+								
+
+								<label>Dislike</label>
+								<input
+									type="checkbox"
+									name={image.url}
+									checked={dislikedCheckedImage[image.url]}
+									onChange={handleDislikedCheckedImage}
+								/>
 							</Card.Body>
 						</Card>
 					</Col>
@@ -83,10 +113,10 @@ const AllCustomerImages = ({ images, owner, title }) => {
 			</Row>
 			<Row>
 				<Col>
-					{newImages && newImages.length > 0 &&		
+					{images.length === likedImages.length + dislikedImages.length  &&
 						<Button 
 							className="btn btn-success" 
-							onClick={() => creatAlbum(newImages)}
+							onClick={() => creatAlbum(likedImages)}
 						>
 							Submit Photos
 						</Button>
