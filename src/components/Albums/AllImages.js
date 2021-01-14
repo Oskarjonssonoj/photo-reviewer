@@ -5,8 +5,9 @@ import { SRLWrapper } from 'simple-react-lightbox'
 import { useAuth } from '../../contexts/ContextComp'
 import useDeleteImage from '../../hooks/useDeleteImage'
 import useUploadImage from '../../hooks/useUploadImage';
+import './styles/album.scss';
 
-const AllImages = ({ images, edit }) => {
+const AllImages = ({ images }) => {
 
 	// States
 	const [newImages, setNewImages] = useState([])
@@ -14,6 +15,7 @@ const AllImages = ({ images, edit }) => {
 	const [deleteImage, setDeleteImage] = useState(null);
 	const [newImageArray, setNewImageArray] = useState(null)
 	const [errorText, setErrorText] = useState(false)
+	const [editAndCreateAlbum, setEditAndCreateAlbum] = useState(false)
 	
 	// Hooks
 	const navigate = useNavigate()
@@ -70,15 +72,24 @@ const AllImages = ({ images, edit }) => {
 	}
 
 	return (
+		<div className="allImages">
+
+		<div className="editAlbum">
+			<p>Edit Album</p>
+			<input
+				type="checkbox"
+				onClick={()=> setEditAndCreateAlbum(!editAndCreateAlbum)}
+			/>
+		</div>
 		<SRLWrapper>
 		<p>{errorText}</p>
-			<Row className="my-3">
+			<div className="images">
 				{images.map(image => (
 					<Col sm={6} md={4} lg={3} key={image.id}>
-						<Card className="mb-3 text-center">
+						<Card className="imageCard">
 							<a href={image.url} title="Lightbox mode" data-attribute="SRL">
 								<Card.Img variant="top" src={image.url} title={image.name} />
-								{currentUser && edit &&
+								{currentUser && editAndCreateAlbum &&
 									<input
 										className="mt-4"
 										type="checkbox"
@@ -94,18 +105,20 @@ const AllImages = ({ images, edit }) => {
 								</Card.Text>
 								{
 									image.owner === currentUser.uid && (
-										<Button className="btn-danger" size="sm" onClick={() => {
+										<button className="deleteImage" onClick={() => {
 											handleDeleteImage(image)
 										}}>
-											Delete
-										</Button>
+										<p>
+											x
+										</p>
+										</button>
 									)
 								}
 							</Card.Body>
 						</Card>
 					</Col>
 				))}
-			</Row>
+			</div>
 			<Row>
 				<Col>
 					{currentUser && newImages && newImages.length > 0 &&		
@@ -119,6 +132,7 @@ const AllImages = ({ images, edit }) => {
 				</Col>				
 			</Row>
 		</SRLWrapper>
+		</div>
 	)
 }
 

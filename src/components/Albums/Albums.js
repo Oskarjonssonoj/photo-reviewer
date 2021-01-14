@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/ContextComp'
 import useAlbums from '../../hooks/useAlbums'
 import AllAlbums from './AllAlbums'
 import './styles/albums.scss'
+import NavigationBar from '../Navigation/NavigationBar'
 
 const Albums = () => {
 
@@ -16,6 +17,7 @@ const Albums = () => {
 
 	return (
 		<div className="albums">
+		<NavigationBar />
 			<div className="albumsSection">
 
 				<h2 className="mb-3">All Albums</h2>

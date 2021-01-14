@@ -3,6 +3,7 @@ import { useAuth } from '../../contexts/ContextComp'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
 import { Box, Flex, Spacer, Heading, Button, MenuItem, MenuGroup, Menu, MenuButton, MenuList} from "@chakra-ui/react"
+import './navbar.scss'
 
 const NavigationBar = () => {
 
@@ -17,7 +18,7 @@ const NavigationBar = () => {
     }
 
     return (
-		<>
+		<div className="nav">
 			<Flex>
 				<Box m="15px">
 					<Heading size="md">Chakra App</Heading>
@@ -35,14 +36,14 @@ const NavigationBar = () => {
 									<MenuList>
 										<MenuGroup title="Profile">
 										<MenuItem>My Account</MenuItem>
-										<MenuItem to="/logout" onClick={handleLogout} >Logout </MenuItem>
+										<MenuItem to="/" onClick={handleLogout} >Logout </MenuItem>
 										</MenuGroup>
 									</MenuList>
 								</Menu>
 							</>
 						) : (
 							<Button className="nav-link">
-								<Link to="/login">
+								<Link to="/">
 									Login
 								</Link>
 							</Button>
@@ -50,7 +51,7 @@ const NavigationBar = () => {
 					}
 				</Box>
 			</Flex>
-		</>
+		</div>
     )
 }
 
