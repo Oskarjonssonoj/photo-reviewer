@@ -15,7 +15,6 @@ const AllCustomerImages = ({ images, owner, title }) => {
 	// Hooks
 	const { selectedError, selectedSuccess } = useSelectedImages(newImageArray, owner, title);
 	const navigate = useNavigate()
-	const { albumId } = useParams()
 
 	// Effects
 	useEffect(() => {
@@ -68,7 +67,7 @@ const AllCustomerImages = ({ images, owner, title }) => {
 								<Card.Img variant="top" src={image.url} title={image.name} />
 							</a>
 							<Card.Body>
-								<Card.Text className="text-muted small">
+								<Card.Text className="small">
 									{image.name} ({Math.round(image.size/1024)} kb)
 								</Card.Text>
 								<input
@@ -86,7 +85,7 @@ const AllCustomerImages = ({ images, owner, title }) => {
 				<Col>
 					{newImages && newImages.length > 0 &&		
 						<Button 
-							className="btn button__primary" 
+							className="btn btn-success" 
 							onClick={() => creatAlbum(newImages)}
 						>
 							Submit Photos
