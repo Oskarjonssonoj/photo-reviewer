@@ -4,6 +4,7 @@ import { Row, Col, Card, Button } from 'react-bootstrap'
 import { SRLWrapper } from 'simple-react-lightbox'
 import useSelectedImages from '../../hooks/useSelectedImages';
 import { Radio, RadioGroup, Stack } from "@chakra-ui/react"
+import LikedImages from './LikedImages'
 
 const AllCustomerImages = ({ images, owner, title }) => {
 
@@ -14,6 +15,7 @@ const AllCustomerImages = ({ images, owner, title }) => {
 	const [likedCheckedImages, setLikedCheckedImages] = useState({})
 	const [newImageArray, setNewImageArray] = useState(null)
 	const [errorText, setErrorText] = useState(false)
+	const [reviewSelected, setReviewSelected] = useState(false)
 
 	// Hooks
 	const { selectedError, selectedSuccess } = useSelectedImages(newImageArray, owner, title);
@@ -45,9 +47,6 @@ const AllCustomerImages = ({ images, owner, title }) => {
 		}
 		setLikedImages(likedImages);
 	}
-
-
-
 		
 	// Handling all the checked boxed and storing in new array
 	const handleDislikedCheckedImage = (e) => {
@@ -64,8 +63,6 @@ const AllCustomerImages = ({ images, owner, title }) => {
 		setDislikedImages(dislikedImages);
 	}
 
-		
-
 	// Create new album based on rated pictures
 	const creatAlbum = (checkedImages) => {
 		let imagesToSave = []
@@ -79,72 +76,85 @@ const AllCustomerImages = ({ images, owner, title }) => {
 		setNewImageArray(imagesToSave)
 	}
 
-	console.log(images)
+	const handleReview = () => {
+		setReviewSelected(!reviewSelected)
+	}
 
 	return (
 		<SRLWrapper>
 		<p>{errorText}</p>
-			<Row className="my-3">
-				{images.map(image => (
-					<Col sm={6} md={4} lg={3} key={image.id}>
-						<Card className="mb-3">
-							<a href={image.url} title="View image in lightbox" data-attribute="SRL">
-								<Card.Img variant="top" src={image.url} title={image.name} />
-							</a>
-							<Card.Body>
-								<Card.Text className="small">
-									{image.name} ({Math.round(image.size/1024)} kb)
-								</Card.Text>
-								{/* <label>Like
-									<input
-										type="checkbox"
-										name={image.url}
-										checked={likedCheckedImages[image.url]}
-										onChange={handleLikedCheckedImage}
-									/>
-								</label>
-								
+		{
+			!reviewSelected
+			 ? (
+				<>
+					<Row className="my-3">
+						{
+						images.map(image => (
+							<Col sm={6} md={4} lg={3} key={image.id}>
+								<Card className="mb-3">
+									<a href={image.url} title="View image in lightbox" data-attribute="SRL">
+										<Card.Img variant="top" src={image.url} title={image.name} />
+									</a>
+									<Card.Body>
+										<Card.Text className="small">
+											{image.name} ({Math.round(image.size/1024)} kb)
+										</Card.Text>
+										<label>Like
+											<input
+												type="checkbox"
+												name={image.url}
+												checked={likedCheckedImages[image.url]}
+												onChange={handleLikedCheckedImage}
+											/>
+										</label>
+										
 
-								<label>Dislike</label>
-								<input
-									type="checkbox"
-									name={image.url}
-									checked={dislikedCheckedImage[image.url]}
-									onChange={handleDislikedCheckedImage}
-								/> */}
+										<label>Dislike</label>
+										<input
+											type="checkbox"
+											name={image.url}
+											checked={dislikedCheckedImage[image.url]}
+											onChange={handleDislikedCheckedImage}
+										/>
 
-								<RadioGroup defaultValue="1">
-								<Stack direction="row">
-									<Radio 
-										value="like" name={image.url}
-										checked={likedCheckedImages[image.url]}
-										onChange={handleLikedCheckedImage}>Like</Radio>
+										{/* <RadioGroup defaultValue="1">
+										<Stack direction="row">
+											<Radio 
+												value="like" name={image.url}
+												checked={likedCheckedImages[image.url]}
+												onChange={handleLikedCheckedImage}>Like</Radio>
 
-									<Radio 
-										value="dislike"
-										name={image.url}
-										checked={dislikedCheckedImage[image.url]}
-										onChange={handleDislikedCheckedImage}
-										>Disliked</Radio>
-								</Stack>
-								</RadioGroup>
-							</Card.Body>
-						</Card>
-					</Col>
-				))}
-			</Row>
-			<Row>
-				<Col>
-					{images.length <= likedImages.length + dislikedImages.length  &&
-						<Button 
-							className="btn btn-success" 
-							onClick={() => creatAlbum(likedImages)}
-						>
-							Submit Photos
-						</Button>
-					}
-				</Col>				
-			</Row>
+											<Radio 
+												value="dislike"
+												name={image.url}
+												checked={dislikedCheckedImage[image.url]}
+												onChange={handleDislikedCheckedImage}
+												>Disliked</Radio>
+										</Stack>
+										</RadioGroup> */}
+									</Card.Body>
+								</Card>
+							</Col>
+						))}
+					</Row>
+					<Row>
+						<Col>
+							{images.length <= likedImages.length + dislikedImages.length  &&
+								<Button 
+									className="btn btn-success" 
+									onClick={handleReview}
+								>
+									Review my selction of images
+								</Button>
+							}
+						</Col>				
+					</Row>
+				</>
+			) : (
+				<LikedImages images={likedImages} create={creatAlbum} goBack={handleReview}/>
+			)
+		}
+			
 		</SRLWrapper>
 	)
 }
