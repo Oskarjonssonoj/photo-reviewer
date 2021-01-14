@@ -39,8 +39,21 @@ const Album = () => {
 
 	// Invite a customer based on url + albumID
 	const handleInvite = () => {
+
+		// Gererating random code every time
+		const generate_idCode = (length) => {
+			//edit the token allowed characters
+			var a = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".split("");
+			var b = [];  
+			for (var i=0; i<length; i++) {
+				var j = (Math.random() * (a.length-1)).toFixed(0);
+				b[i] = a[j];
+			}
+			return b.join("");
+		}
+
 		const href = window.location.href
-        setInvite(`${href}/review`);
+        setInvite(`${href}/${generate_idCode(15)}`);
 	};
 
 	// Dynamicly change the title of album
