@@ -70,7 +70,7 @@ const App = () => {
 
 								
 								{/* Customer Routes */}
-								<Route path="/albums/:albumId/review">
+								<Route path="/albums/:albumId/:code">
 									<CustomerAlbum />
 								</Route>
 
