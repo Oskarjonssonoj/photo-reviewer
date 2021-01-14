@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
 import './styles/login.scss'
+import Photo from '../../assets/images/welcome.svg'
 
 const Login = (props) => {
 
@@ -36,28 +37,41 @@ const Login = (props) => {
 
     return (
         <div className="login">
+
+        <div className="welcomeSection">
+            <h1>Welcome</h1>
+            <img alt="welcome" src={Photo}/>
+        </div>
             <div className="loginContainer">
                 <p className="errorMsg">{error}</p> 
                 <form onSubmit={handleSubmit}>
-                    <label>Username</label>
-                    <input 
-                        type="text" 
-                        autoFocus 
-                        required 
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
-                    /> 
                     
-                    <label>Password</label>
-                    <input 
-                        type="password" 
-                        required 
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
-                    /> 
+                    <h1>Log In</h1>
+
+                    <div className="inputFields">
+                        <input 
+                                type="text" 
+                                autoFocus 
+                                required 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                placeholder="Email..."
+                            /> 
+                            
+                            <input 
+                                type="password" 
+                                required 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                placeholder="Password..."
+                            /> 
+                    </div>
+                    
                     <div className="btnContainer">
-                        <button disabled={loading}>Sign in</button>
-                        <p>Don't have an account? <Link to="/register">Sign up</Link></p>
+                        <div className="btns">
+                            <button disabled={loading} id="signIn">Sign in</button>
+                            <Link to="/register"><button disabled={loading}>Sign up</button></Link>
+                        </div>
                         <p>Forgot your password? Click <Link to="/reset-password">Here</Link></p>
                     </div>
                 </form>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
-import './styles/login.scss'
 
 const ForgotPassword = () => {
 

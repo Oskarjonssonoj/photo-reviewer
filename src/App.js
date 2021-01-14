@@ -24,29 +24,24 @@ import './assets/scss/app.scss'
 const App = () => {
 
 	return (
+		<div className="App">
 			<Router>
-				<ChakraProvider>
 					<AuthContextProvider>
 
 					<SimpleReactLightbox>
 
 						<NavigationBar />
 
-							<Container className="py-3">
 								<Routes>
 
 									{/* Landing Pagge */}
 									<Route path="/">
-										<Home />
+										<Login />
 									</Route>
 
 									{/* Registration, Login, Reset */}
 									<Route path="/register">
 										<Signup />
-									</Route>
-
-									<Route path="/login">
-										<Login />
 									</Route>
 
 									<Route path="/reset-password">
@@ -55,6 +50,7 @@ const App = () => {
 
 									{/* Restricted/Authenticated Components */}
 									<RestrictedRoute path="/albums">
+
 										<RestrictedRoute path="/">
 											<Albums />
 										</RestrictedRoute>
@@ -78,13 +74,12 @@ const App = () => {
 								<Route path="*" element={<NotFound />} />
 
 								</Routes>
-							</Container>
 						
 						</SimpleReactLightbox>
 
 					</AuthContextProvider>
-				</ChakraProvider>
 			</Router>
+		</div>
 	);
 }
 
