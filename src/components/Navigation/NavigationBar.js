@@ -41,7 +41,11 @@ const NavigationBar = () => {
 								</Menu>
 							</>
 						) : (
-							<Button to="/login" className="nav-link">Login</Button>
+							<Button className="nav-link">
+								<Link to="/login">
+									Login
+								</Link>
+							</Button>
 						)
 					}
 				</Box>
