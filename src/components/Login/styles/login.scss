@@ -95,4 +95,16 @@
       }
     }
 } 
+@media screen and (max-width: 800px) {
+    .login{
+      flex-direction: column;
+      .welcomeSection {
+        width: 100%;
+      }
+  
+      .loginContainer {
+        width: 100%;
+      }  
+    }
+}
 
