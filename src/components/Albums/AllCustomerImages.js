@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Row, Col, Card, Button } from 'react-bootstrap'
+import { Row, Card } from 'react-bootstrap'
 import { SRLWrapper } from 'simple-react-lightbox'
 import useSelectedImages from '../../hooks/useSelectedImages';
-import { Radio, RadioGroup, Stack } from "@chakra-ui/react"
 import LikedImages from './LikedImages'
+import { HiThumbDown, HiThumbUp } from "react-icons/hi";
+import './styles/customerAlbum.scss';
 
 const AllCustomerImages = ({ images, owner, title }) => {
 
@@ -87,68 +88,54 @@ const AllCustomerImages = ({ images, owner, title }) => {
 			!reviewSelected
 			 ? (
 				<>
-					<Row className="my-3">
+					<div className="images">
 						{
 						images.map(image => (
-							<Col sm={6} md={4} lg={3} key={image.id}>
-								<Card className="mb-3">
-									<a href={image.url} title="View image in lightbox" data-attribute="SRL">
-										<Card.Img variant="top" src={image.url} title={image.name} />
-									</a>
-									<Card.Body>
-										<Card.Text className="small">
-											{image.name} ({Math.round(image.size/1024)} kb)
-										</Card.Text>
-										<label>Like
-											<input
-												type="checkbox"
-												name={image.url}
-												checked={likedCheckedImages[image.url]}
-												onChange={handleLikedCheckedImage}
-											/>
-										</label>
-										
-
-										<label>Dislike</label>
-										<input
-											type="checkbox"
-											name={image.url}
-											checked={dislikedCheckedImage[image.url]}
-											onChange={handleDislikedCheckedImage}
-										/>
-
-										{/* <RadioGroup defaultValue="1">
-										<Stack direction="row">
-											<Radio 
-												value="like" name={image.url}
-												checked={likedCheckedImages[image.url]}
-												onChange={handleLikedCheckedImage}>Like</Radio>
-
-											<Radio 
-												value="dislike"
-												name={image.url}
-												checked={dislikedCheckedImage[image.url]}
-												onChange={handleDislikedCheckedImage}
-												>Disliked</Radio>
-										</Stack>
-										</RadioGroup> */}
-									</Card.Body>
-								</Card>
-							</Col>
+							<div key={image.id}>
+								<div className="imageCard">
+									<img variant="top" src={image.url} title={image.name} />
+										<Card.Body>
+											<Card.Text className="small">
+												{image.name} ({Math.round(image.size/1024)} kb)
+											</Card.Text>
+											<div className="rate-section">
+												<div className="thumb-button">
+													<label><HiThumbUp id="like" /></label>
+														<input
+															type="checkbox"
+															name={image.url}
+															checked={likedCheckedImages[image.url]}
+															onChange={handleLikedCheckedImage}
+														/>
+												</div>
+												<div className="thumb-button">
+													<label><HiThumbDown id="dislike" /></label>
+													<input
+														type="checkbox"
+														name={image.url}
+														checked={dislikedCheckedImage[image.url]}
+														onChange={handleDislikedCheckedImage}
+													/>
+												</div>
+											</div>
+											
+											
+										</Card.Body>
+								</div>
+						</div>
 						))}
-					</Row>
-					<Row>
-						<Col>
-							{images.length <= likedImages.length + dislikedImages.length  &&
-								<Button 
-									className="btn btn-success" 
-									onClick={handleReview}
-								>
-									Review my selction of images
-								</Button>
-							}
-						</Col>				
-					</Row>
+					</div>
+					<div className="submit-photo">
+						{images.length <= likedImages.length + dislikedImages.length  &&
+									<button 
+										className="button" 
+										onClick={handleReview}
+									>
+										Review my selction of images
+									</button>
+								}
+
+						</div>
 				</>
 			) : (
 				<LikedImages
