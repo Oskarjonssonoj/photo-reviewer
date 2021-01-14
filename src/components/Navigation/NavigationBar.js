@@ -72,14 +72,14 @@ export default NavigationBar
 									<MenuList>
 										<MenuGroup title="Profile">
 										<MenuItem>My Account</MenuItem>
-										<MenuItem to="/logout" onClick={handleLogout} >Logout </MenuItem>
+										<MenuItem to="/" onClick={handleLogout} >Logout </MenuItem>
 										</MenuGroup>
 									</MenuList>
 								</Menu>
 							</>
 						) : (
 							<Button className="nav-link">
-								<Link to="/login">
+								<Link to="/">
 									Login
 								</Link>
 							</Button>

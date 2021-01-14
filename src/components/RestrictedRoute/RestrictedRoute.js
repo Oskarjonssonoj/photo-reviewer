@@ -10,7 +10,7 @@ const RestrictedRoute = (props) => {
     return (
         currentUser 
             ? <Route {...props} />
-			: <Navigate to='/login' />
+			: <Navigate to='/' />
         
     )
 }

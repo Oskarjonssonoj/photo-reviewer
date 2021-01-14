@@ -19,6 +19,7 @@ import {
 	Alert,
 	AlertIcon,
   } from "@chakra-ui/react"
+import NavigationBar from '../Navigation/NavigationBar'
 
 
 const Album = () => {
@@ -27,7 +28,6 @@ const Album = () => {
 	const [editAlbumTitle, setEditAlbumTitle] = useState(null)
 	const [newTitle, setNewTitle] = useState(null)
 	const [errorMsg, setErrorMsg] = useState(false)
-	const [editAndCreateAlbum, setEditAndCreateAlbum] = useState(false)
 
 	// Hooks
 	const { albumId } = useParams()
@@ -100,9 +100,11 @@ const Album = () => {
 
 				? <BounceLoader color={"#888"} size={20} />
 				: album && currentUser &&
-					<>
+					<div className="album">
 						
+					<NavigationBar />
 
+					<div className="albumSection">
 						{
 							errorMsg && ( 
 								<Alert status="error">
@@ -113,6 +115,14 @@ const Album = () => {
 								</Alert>
 							)
 						}
+
+						<div className="backToAlbums">
+							<Link to="/albums">
+								<button>
+									Go back to all your albums
+								</button>
+							</Link>
+						</div>
 
 						{
 							editAlbumTitle  
@@ -131,42 +141,37 @@ const Album = () => {
 								: 
 								
 								<div className="album-title">
-									<h2 className="mb-3">{album && album.title}</h2>
+									<h2>{album && album.title}</h2>
 									<BsPen onClick={handleEditAlbumTitle} className="editor-icon" />
+									<p>Edit Title</p>
 								</div>
 						}	
 						
-						<Link to="/albums">Go back to all your albums</Link>
-						
+						<div className="imagesSection">
 
-						<UploadImage albumId={albumId} />
+							<UploadImage albumId={albumId} />
 
-						<hr />
+							<AllImages images={album.images} />
 
-						<input
-							className="mt-4"
-							type="checkbox"
-							onClick={()=> setEditAndCreateAlbum(!editAndCreateAlbum)}
-						/>
-
-						<AllImages images={album.images} edit={editAndCreateAlbum} />
-
-						{album.images.length > 0 &&
-							<div className="button-wrapper">
-								<Button 
-									className="btn button__secondary"
-									disabled={loading} 
-									onClick={handleInvite}
-									>Invite link
-								</Button>											
-							</div>
-						}	
+						</div>
+							
+							{album.images.length > 0 &&
+								<div className="button-wrapper">
+									<Button 
+										className="btn button__secondary"
+										disabled={loading} 
+										onClick={handleInvite}
+										>Invite link
+									</Button>											
+								</div>
+							}	
 
 						{
 							invite && 
 							<p>{invite}</p>
 						}		
-					</>
+					</div>
+				</div>
 			}		
 		</>
 	)

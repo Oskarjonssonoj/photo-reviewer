@@ -14,7 +14,6 @@ import Albums from './components/Albums/Albums';
 import CustomerAlbum from './components/Albums/CustomerAlbum';
 import CreateNewAlbum from './components/Albums/CreateNewAlbum.js';
 import RestrictedRoute from './components/RestrictedRoute/RestrictedRoute'
-import NavigationBar from './components/Navigation/NavigationBar.js';
 import NotFound from './components/NotFound/NotFound.js';
 
 
@@ -29,8 +28,6 @@ const App = () => {
 					<AuthContextProvider>
 
 					<SimpleReactLightbox>
-
-						<NavigationBar />
 
 								<Routes>
 

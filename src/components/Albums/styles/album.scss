@@ -1,14 +1,114 @@
-
-
-.editor-icon{
-    cursor: pointer;
-    font-size: 30px;
-}
-.album-title{
+.album {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    h2 {
-        font-size: 30px;
+    h2, a, p, button {
+        font-family: 'Abel', sans-serif;
+        margin-bottom: 0;
+    }
+
+    .albumSection {
+        margin: 2rem 10rem 4rem 10rem;
+
+        .backToAlbums {
+            
+            button{
+                margin-top: 2rem;
+                height: 3rem;
+                width: 12rem;
+                border: 1px solid lightgray;
+                border-radius: 0.5rem;
+                background-color: #324F57;
+                color: white;
+                transition: 0.5s;
+                outline: none;
+            }
+            button:hover{
+                background-color: rgb(30, 48, 53);
+            }
+        }
+
+        .album-title{
+            display: flex;
+            align-items: center;
+            margin-top: 2rem;
+            
+            .editor-icon{
+                cursor: pointer;
+                font-size: 1.2em;
+                margin-left: 1.5rem;
+                margin-right: 0.5rem;
+                color: #222831;
+            }
+        }
+
+        .imagesSection {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+
+            #upload-image-dropzone-wrapper {
+                display: flex;
+                justify-content: center;
+                flex-direction: column;
+                border: dashed lightgray 2px;
+                border-radius: 0.5rem;
+                width: 30%;
+                margin-top: 0 !important;
+    
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+
+            .allImages {
+                width: 60%;
+                position: relative;
+
+                .editAlbum {
+                    display: flex;
+                    align-items: center;
+                    position: absolute;
+                    right: 1rem;
+                    top: -2rem;
+
+                    input {
+                        margin-left: 1rem;
+                    }
+                }
+
+                .images {
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .imageCard {
+                        margin-bottom: 2rem;
+                        text-align: center;
+                        position: relative;
+
+                        .deleteImage {
+                            background: red;
+                            color: white;
+                            font-weight: bold;
+                            border: none;
+                            border-radius: 0.2rem;
+                            width: 1.3rem;
+                            position: absolute;
+                            top: 0.3rem;
+                            left: 0.3rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+
+                            p {
+                                font-size: 0.9rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
