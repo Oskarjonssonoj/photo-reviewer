@@ -151,7 +151,8 @@ const AllCustomerImages = ({ images, owner, title }) => {
 					</Row>
 				</>
 			) : (
-				<LikedImages images={likedImages} create={creatAlbum} goBack={handleReview}/>
+				<LikedImages
+				likedImages={likedImages} create={creatAlbum} goBack={handleReview} dislikedImages={dislikedImages}/>
 			)
 		}
 			
