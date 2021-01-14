@@ -1,55 +1,11 @@
 .albums {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-    margin: 0 auto;
+    height: 92%;
     
-
-    .eachAlbum {
-        height: 200px;
-        width: 20%;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-        justify-content: center;
-        background-color: white;
-        margin: 1rem 2rem;
-        cursor: pointer;
-
-        img {
-            width: 50%
-        }
+    h2, a {
+        font-family: 'Abel', sans-serif;
     }
-}
 
-.images{
-
-    .imgContainer{
-        width: 1000px;
-        margin: 0 auto;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .eachImage{
-        width: 200px;
-        margin: 2rem;
-    }
-}
-
-.editor-icon{
-    cursor: pointer;
-    font-size: 30px;
-}
-.album-title{
-    display: flex;
-    justify-content: space-between;
-
-    h2 {
-        font-size: 30px;
+    .albumsSection {
+        margin: 0 3rem;
     }
 }

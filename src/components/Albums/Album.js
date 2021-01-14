@@ -8,7 +8,7 @@ import UploadImage from './UploadImage'
 import { useAuth } from '../../contexts/ContextComp'
 import {db} from '../../firebase/firebase'
 import { BsPen, BsX } from "react-icons/bs";
-import './styles/albums.scss'
+import './styles/album.scss'
 import {
 	FormControl,
 	FormLabel,
