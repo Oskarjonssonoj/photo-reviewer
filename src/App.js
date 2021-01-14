@@ -3,7 +3,7 @@ import React from 'react';
 import SimpleReactLightbox from 'simple-react-lightbox'
 import { Container } from 'react-bootstrap'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { ChakraProvider } from "@chakra-ui/react"
+
 
 import Login from './components/Login/Login.js';
 import Signup from './components/Signup/Signup';

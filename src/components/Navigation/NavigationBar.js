@@ -1,14 +1,18 @@
 import React from 'react'
+import firebase from 'firebase';
 import { useAuth } from '../../contexts/ContextComp'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { NavLink, Link } from 'react-router-dom'
-import { Box, Flex, Spacer, Heading, Button, MenuItem, MenuGroup, Menu, MenuButton, MenuList} from "@chakra-ui/react"
+import Logo from '../../assets/images/logo.png'
+import './navbar.scss'
+import { Box, Flex, Spacer, Button, MenuItem, MenuGroup, 
+	Menu, MenuButton, MenuList } from "@chakra-ui/react"
 
 const NavigationBar = () => {
-
+	// how is the user
+	let user = firebase.auth().currentUser;
     // Context
-    const { logout, currentUser } = useAuth()
-
+	const { logout, currentUser } = useAuth()
    	// GENERAL FUNCTIONS
 
     // Handle the submitting of logout
@@ -18,9 +22,42 @@ const NavigationBar = () => {
 
     return (
 		<>
-			<Flex>
+			<nav>
+				<div className="nav-bar">
+					<Link to="/albums">
+						<img src={Logo} />
+					</Link>
+					<div className="button">
+					{
+						currentUser ? (
+							<>
+								<Link className="links" to="/albums" m="5">Album</Link>
+								<Link className="links" to="/" onClick={handleLogout} >Logout </Link>
+								<div>{user.email}</div>
+							</>
+						) : (
+							<Button className="nav-link">
+								<Link to="/">
+									Login
+								</Link>
+							</Button>
+						)
+					}
+					</div>
+				</div>
+			</nav>
+		</>
+    )
+}
+
+export default NavigationBar
+
+
+
+
+{/* <Flex>
 				<Box m="15px">
-					<Heading size="md">Chakra App</Heading>
+					<img src={Logo} />
 				</Box>
 				<Spacer />
 				<Box>
@@ -49,9 +86,4 @@ const NavigationBar = () => {
 						)
 					}
 				</Box>
-			</Flex>
-		</>
-    )
-}
-
-export default NavigationBar
+			</Flex> */}

@@ -24,8 +24,3 @@ const AlbumsGrid = ({ albums }) => {
 }
 
 export default AlbumsGrid
-
-
-
-{/* <Card.Img variant="top" src={Photo} title={album.title} />
-<Link to={`/albums/${album.id}`}>{album.title}</Link> */}

@@ -5,6 +5,7 @@ import { useAuth } from '../../contexts/ContextComp'
 import useAlbums from '../../hooks/useAlbums'
 import AllAlbums from './AllAlbums'
 import './styles/albums.scss'
+import AlbumInfo from './AlbumInfo'
 
 const Albums = () => {
 
@@ -22,7 +23,14 @@ const Albums = () => {
 				{
 					loading
 						? (<BounceLoader color={"#888"} size={20} />)
-						: (<AllAlbums albums={albums} />)
+						: (
+							<>	
+								<AlbumInfo albums={albums}/>
+								<hr />
+								<AllAlbums albums={albums} />
+								<hr />
+							</>
+						)
 				}
 
 				{
