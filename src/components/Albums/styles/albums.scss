@@ -1,7 +1,11 @@
 .albums {
     
-    h2, a {
+    h2, a, p, h1 {
         font-family: 'Abel', sans-serif;
+    }
+
+    p {
+        margin-bottom: 0;
     }
 
     .albumsSection {
@@ -12,6 +16,7 @@
             display: flex;
             flex-wrap: wrap;
             max-width: 100%;
+            margin: 2rem 0;
 
             .card{
                 display: flex;
@@ -33,11 +38,12 @@
                     width: 100%;
                     align-items: center;
                     height: 100%;
+
                     .icon{
                         margin-right: 1rem;
                         margin-left: 0.5rem;
                         color: #222831;
-                        font-size: 1.7rem;
+                        font-size: 1.3rem;
                     }
                 }
             }

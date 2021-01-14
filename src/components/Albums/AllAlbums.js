@@ -14,7 +14,9 @@ const AlbumsGrid = ({ albums }) => {
 						<Link className="card" to={`/albums/${album.id}`}>
 							<div> 
 								<BsFillFolderFill className="icon" />
-								 {album.title}
+								<p>
+								 	{album.title}
+								</p>
 							</div>
 						</Link>
 				</div>

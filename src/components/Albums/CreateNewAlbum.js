@@ -3,6 +3,8 @@ import { Row, Col, Card, Form, Button, Alert } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { db } from '../../firebase/firebase'
 import { useAuth } from '../../contexts/ContextComp'
+import NavigationBar from '../Navigation/NavigationBar'
+import './styles/createnew.scss'
 
 const CreateNewAlbum = () => {
 
@@ -56,31 +58,26 @@ const CreateNewAlbum = () => {
 
 	return (
 		<>
-			<Row>
-				<Col md={{ span: 6, offset: 3 }}>
-					<Card>
-						<Card.Body>
-							<Card.Title>Create a New Album</Card.Title>
+			<NavigationBar />
+				<div className="createNewAlbum">
 
-							{error && (<Alert variant="danger">{error}</Alert>)}
+					{error && (<Alert variant="danger">{error}</Alert>)}
 
-							<Form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit}>
 
-								<Form.Group id="title">
-									<Form.Label>Album Title</Form.Label>
-									<Form.Control type="title" onChange={handleTitleChange} value={title} required />
-									{title && title.length < 4 && (
-										<Form.Text className="text-danger">Please enter a title at least 4 characters long.</Form.Text>
-									)}
-								</Form.Group>
+						<div id="title">
+							<h2>Create a New Album</h2>
+							<p>Album Title</p>
+							<input type="title" onChange={handleTitleChange} value={title} required placeholder="Enter Album Name..."/>
+							{title && title.length < 4 && (
+								<p className="text-danger">Please enter a title at least 4 characters long.</p>
+							)}
+						</div>
 
-								<Button disabled={loading} type="submit">Create</Button>
-							</Form>
-						</Card.Body>
-					</Card>
-				</Col>
-			</Row>
-		</>
+						<button disabled={loading} type="submit">Create</button>
+					</form>
+				</div>
+		</>	
 	)
 }
 
