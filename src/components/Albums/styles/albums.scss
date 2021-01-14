@@ -6,6 +6,68 @@
     }
 
     .albumsSection {
-        margin: 0 3rem;
+        max-width: 1200px;
+        margin: 0 auto;
+
+
+        .albumContainer{
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 100%;
+
+            .card{
+                display: flex;
+                align-items: center;
+                align-items: center;
+                min-width: 8rem;
+                height: 3rem;
+                border: 1px solid #222831;
+                background-color: #F6EED0;
+                margin-right: 1rem;
+                color: #222831;
+                padding-right: 0.5rem;
+                margin-right: 0.5rem;
+                margin-bottom: 0.5rem;
+                font-weight: bold;
+                transition: 0.5s;
+                
+    
+                div{
+                    display: flex;
+                    justify-content: start;
+                    width: 100%;
+                    align-items: center;
+                    height: 100%;
+                    .icon{
+                        margin-right: 1rem;
+                        margin-left: 0.5rem;
+                        color: #222831;
+                        font-size: 1.7rem;
+                    }
+                }
+            }
+            .card:hover{
+                text-decoration: none;
+                background-color: rgb(206, 198, 172);
+            }
+        }
+        
+
+    }
+
+    .create-new-album{
+        button{
+            margin-top: 2rem;
+            height: 3rem;
+            width: 10rem;
+            border: 1px solid lightgray;
+            border-radius: 0.5rem;
+            background-color: #324F57;
+            color: white;
+            transition: 0.5s;
+        }
+        button:hover{
+            background-color: rgb(30, 48, 53);
+        }
     }
 }
