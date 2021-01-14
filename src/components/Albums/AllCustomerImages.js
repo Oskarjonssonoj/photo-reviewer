@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { Row, Col, Card, Button } from 'react-bootstrap'
 import { SRLWrapper } from 'simple-react-lightbox'
 import useSelectedImages from '../../hooks/useSelectedImages';
+import { Radio, RadioGroup, Stack } from "@chakra-ui/react"
 
 const AllCustomerImages = ({ images, owner, title }) => {
 
@@ -32,33 +33,38 @@ const AllCustomerImages = ({ images, owner, title }) => {
 
 	// Handling all the checked boxed and storing in new array
 	const handleLikedCheckedImage = (e) => {
-		
+	
 		setLikedCheckedImages({...likedCheckedImages, [e.target.name] : e.target.checked })
-		
-			if (likedImages.includes(e.target.name)) {
-				for (let i = 0; i < likedImages.length; i++){     
-					likedImages[i] === e.target.name && likedImages.splice(i, 1) 			
-				}
-			} else {
-				likedImages.push(e.target.name)
+	
+		if (likedImages.includes(e.target.name)) {
+			for (let i = 0; i < likedImages.length; i++){     
+				likedImages[i] === e.target.name && likedImages.splice(i, 1) 			
 			}
+		} else {
+			likedImages.push(e.target.name)
+		}
 		setLikedImages(likedImages);
 	}
 
+
+
+		
 	// Handling all the checked boxed and storing in new array
 	const handleDislikedCheckedImage = (e) => {
 		
 		setDislikedCheckedImage({...dislikedCheckedImage, [e.target.name] : e.target.checked })
-		
-			if (dislikedImages.includes(e.target.name)) {
-				for (let i = 0; i < dislikedImages.length; i++){     
-					dislikedImages[i] === e.target.name && dislikedImages.splice(i, 1) 			
-				}
-			} else {
-				dislikedImages.push(e.target.name)
+	
+		if (dislikedImages.includes(e.target.name)) {
+			for (let i = 0; i < dislikedImages.length; i++){     
+				dislikedImages[i] === e.target.name && dislikedImages.splice(i, 1) 			
 			}
+		} else {
+			dislikedImages.push(e.target.name)
+		}
 		setDislikedImages(dislikedImages);
 	}
+
+		
 
 	// Create new album based on rated pictures
 	const creatAlbum = (checkedImages) => {
@@ -89,7 +95,7 @@ const AllCustomerImages = ({ images, owner, title }) => {
 								<Card.Text className="small">
 									{image.name} ({Math.round(image.size/1024)} kb)
 								</Card.Text>
-								<label>Like
+								{/* <label>Like
 									<input
 										type="checkbox"
 										name={image.url}
@@ -105,7 +111,23 @@ const AllCustomerImages = ({ images, owner, title }) => {
 									name={image.url}
 									checked={dislikedCheckedImage[image.url]}
 									onChange={handleDislikedCheckedImage}
-								/>
+								/> */}
+
+								<RadioGroup defaultValue="1">
+								<Stack direction="row">
+									<Radio 
+										value="like" name={image.url}
+										checked={likedCheckedImages[image.url]}
+										onChange={handleLikedCheckedImage}>Like</Radio>
+
+									<Radio 
+										value="dislike"
+										name={image.url}
+										checked={dislikedCheckedImage[image.url]}
+										onChange={handleDislikedCheckedImage}
+										>Disliked</Radio>
+								</Stack>
+								</RadioGroup>
 							</Card.Body>
 						</Card>
 					</Col>
@@ -113,7 +135,7 @@ const AllCustomerImages = ({ images, owner, title }) => {
 			</Row>
 			<Row>
 				<Col>
-					{images.length === likedImages.length + dislikedImages.length  &&
+					{images.length <= likedImages.length + dislikedImages.length  &&
 						<Button 
 							className="btn btn-success" 
 							onClick={() => creatAlbum(likedImages)}
