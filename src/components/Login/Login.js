@@ -41,12 +41,12 @@ const Login = (props) => {
         <div className="welcomeSection">
             <img alt="welcome" src={Photo}/>
         </div>
-            <div className="loginContainer">
-                <p className="errorMsg">{error}</p> 
+            <div className="loginContainer"> 
                 <form onSubmit={handleSubmit}>
                     
                     <h1>Log In</h1>
-
+                    
+                    <p className="errorMsg">{error}</p>
                     <div className="inputFields">
                         <input 
                                 type="text" 

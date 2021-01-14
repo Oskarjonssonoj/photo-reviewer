@@ -47,11 +47,11 @@ const Signup = (props) => {
                 <img alt="welcome" src={Photo}/>
             </div>
             <div className="loginContainer">
-                <p className="errorMsg">{error}</p> 
+    
                 <form onSubmit={handleSubmit}>
                     
                 <h1>Create Account</h1>
-
+                <p className="errorMsg">{error}</p> 
                     <div className="inputFields">
                     <input 
                         type="text" 

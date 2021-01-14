@@ -39,7 +39,6 @@ const ForgotPassword = () => {
                 <img alt="welcome" src={Photo}/>
             </div>
             <div className="loginContainer">
-                <p className="errorMsg">{error}</p>
                 { 
                     !success && 
 
