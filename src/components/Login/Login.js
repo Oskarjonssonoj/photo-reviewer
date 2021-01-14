@@ -41,12 +41,12 @@ const Login = (props) => {
         <div className="welcomeSection">
             <img alt="welcome" src={Photo}/>
         </div>
-            <div className="loginContainer">
-                <p className="errorMsg">{error}</p> 
+            <div className="loginContainer"> 
                 <form onSubmit={handleSubmit}>
                     
                     <h1>Log In</h1>
-
+                    
+                    <p className="errorMsg">{error}</p>
                     <div className="inputFields">
                         <input 
                                 type="text" 
@@ -68,8 +68,8 @@ const Login = (props) => {
                     
                     <div className="btnContainer">
                         <div className="btns">
-                            <button disabled={loading} id="signIn">Sign in</button>
-                            <Link to="/register"><button disabled={loading}>Sign up</button></Link>
+                            <button disabled={loading} id="signIn">Log in</button>
+                            <Link to="/register"><button disabled={loading}>Register</button></Link>
                         </div>
                         <p>Forgot your password? Click <Link to="/reset-password">Here</Link></p>
                     </div>

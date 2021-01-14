@@ -3,6 +3,9 @@ import { db } from '../firebase/firebase'
 
 const useSelectedImages = (images, owner, title) => {
 
+	//moment
+	let moment = require('moment');
+
 	// States
     const [selectedError, setSelectedError] = useState(false)
     const [selectedSuccess, setSelectedSuccess] = useState(false)
@@ -17,7 +20,7 @@ const useSelectedImages = (images, owner, title) => {
         }
         
         (async () => {
-			const submittetTitle = `${Math.floor(Math.random() * 100)} -> ${title}` 
+			const submittetTitle = `Reviewed ${moment().format("MMM Do YY")} - ${title}` 
 
 			try {
 				

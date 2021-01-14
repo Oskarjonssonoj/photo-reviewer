@@ -116,20 +116,17 @@ const AllImages = ({ images }) => {
 						</div>
 					</div>
 				))}
-			</div>
-			<Row>
-				<Col>
-					{currentUser && newImages && newImages.length > 0 &&		
-						<Button  
-							onClick={() => creatAlbum(newImages)}
-							className="btn btn-success"
-						>
-							Create and upload a new album
-						</Button>
-					}
-				</Col>				
-			</Row>
+			</div>					
 		</SRLWrapper>
+
+		{currentUser && newImages && newImages.length > 0 &&		
+			<button  
+			onClick={() => creatAlbum(newImages)}
+			className="submitAndCreate"
+			>
+				Create and upload a new album
+			</button>
+		}	
 		</div>
 	)
 }

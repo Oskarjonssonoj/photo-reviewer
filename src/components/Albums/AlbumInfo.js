@@ -18,11 +18,11 @@ const AlbumInfo = (albums) => {
             <div className="fun-fact-container">
                 <div className="fun-fact">
                     <h1>{albums.albums.length}</h1>
-                    <p>Number of albums that you have on photo reviewer</p>
+                    <p>Number of total albums you have on your account</p>
                 </div>
                 <div className="fun-fact">
                     <h1>{numberOfTotalImg}</h1>
-                    <p>Number of photos that you have on photo reviewer</p>
+                    <p>Number of total photos you have on your account</p>
                 </div>
             </div>
         </>

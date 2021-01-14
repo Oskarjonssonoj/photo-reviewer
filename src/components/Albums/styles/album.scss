@@ -154,6 +154,21 @@
                     }
                 }
 
+                .submitAndCreate {
+                    height: 3rem;
+                    border: 1px solid #324F57;
+                    border-radius: 0.25rem ;
+                    background-color: #324F57;
+                    color: white;
+                    transition: 0.5s;
+                    outline: none;
+                    padding: 0 1rem;
+                }
+
+                .submitAndCreate:hover{
+                    background-color: rgb(30, 48, 53);
+                }
+
                 .images {
                     display: flex;
                     flex-wrap: wrap;

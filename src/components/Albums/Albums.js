@@ -28,9 +28,9 @@ const Albums = () => {
 						: (
 							<>	
 								<AlbumInfo albums={albums}/>
-								<hr />
+								
 								<AllAlbums albums={albums} />
-								<hr />
+								
 							</>
 						)
 				}
