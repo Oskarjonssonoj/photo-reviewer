@@ -40,3 +40,16 @@
         margin: 2rem;
     }
 }
+
+.editor-icon{
+    cursor: pointer;
+    font-size: 30px;
+}
+.album-title{
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+        font-size: 30px;
+    }
+}

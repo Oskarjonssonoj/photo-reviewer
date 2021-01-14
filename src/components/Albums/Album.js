@@ -7,6 +7,8 @@ import useAlbum from '../../hooks/useAlbum'
 import UploadImage from './UploadImage'
 import { useAuth } from '../../contexts/ContextComp'
 import {db} from '../../firebase/firebase'
+import { BsPen, BsX } from "react-icons/bs";
+import './styles/albums.scss'
 import {
 	FormControl,
 	FormLabel,
@@ -52,6 +54,10 @@ const Album = () => {
 		setEditAlbumTitle(true)
 	}
 
+	const cancelEditor = () =>{
+		setEditAlbumTitle(false)
+	}
+
 	const saveEditAlbumTitle = async (e) =>{
 		console.log('new album title', newTitle)
 		if(newTitle.length < 3 ) {
@@ -82,7 +88,7 @@ const Album = () => {
 				? <BounceLoader color={"#888"} size={20} />
 				: album && currentUser &&
 					<>
-						<h2 className="mb-3">{album && album.title}</h2>
+						
 
 						{
 							errorMsg && ( 
@@ -100,16 +106,21 @@ const Album = () => {
 								? 
 								<>
 									<FormControl onChange={handleTitleChange} id="first-name">
-										<FormLabel>New Album Name</FormLabel>
+										<div className="album-title">
+											<FormLabel>New Album Name</FormLabel>
+											<BsX onClick={cancelEditor} className="editor-icon" />
+										</div>
 										<Input placeholder={album && album.title} />
 									</FormControl>
 									<Button onClick={saveEditAlbumTitle}>Save</Button>
 								</>
 								
 								: 
-								<>
-									<Button onClick={handleEditAlbumTitle}>editera album</Button>
-								</>
+								
+								<div className="album-title">
+									<h2 className="mb-3">{album && album.title}</h2>
+									<BsPen onClick={handleEditAlbumTitle} className="editor-icon" />
+								</div>
 						}	
 						
 						<Link to="/albums">Go back to all your albums</Link>
