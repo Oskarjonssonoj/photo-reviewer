@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
+import Photo from '../../assets/images/welcome.svg'
 
 const ForgotPassword = () => {
 
@@ -34,25 +35,37 @@ const ForgotPassword = () => {
 
     return (
         <div className="login">
+            <div className="welcomeSection">
+                <img alt="welcome" src={Photo}/>
+            </div>
             <div className="loginContainer">
                 <p className="errorMsg">{error}</p>
-                <p>Please enter your email address and press send to recieve a link to restore your password</p> 
                 { 
                     !success && 
 
                     <form onSubmit={handleSubmit}>
-                        <label>Email Adress</label>
-                        <input 
-                            type="text" 
-                            autoFocus 
-                            required 
-                            value={email} 
-                            onChange={(e) => setEmail(e.target.value)} 
-                        /> 
+                        <h1>Reset Password</h1>
+                        
+                        <p>Please enter your email address and press send to recieve a link to restore your password</p> 
+
+
+                        <div className="inputFields">
+                            
+                            <input 
+                                type="text" 
+                                autoFocus 
+                                required 
+                                value={email} 
+                                onChange={(e) => setEmail(e.target.value)} 
+                                placeholder="Enter your email address..."
+                            /> 
+                        </div>
                         
                         <div className="btnContainer">
-                            <button disabled={loading}>Send</button>
-                            <p>Back to <Link to="/login">Log In</Link></p>
+                            <div className="btns">
+                                <button disabled={loading}>Send</button>
+                            </div>
+                            <p>Back to <Link to="/">Log In</Link></p>
                         </div>
                     </form>
 
@@ -66,7 +79,7 @@ const ForgotPassword = () => {
                             <p>Please check your email for further instructions</p>
                         </div>
 
-                        <Link to="/login" className="text-center mt-2">Log In</Link>
+                        <Link to="/" className="text-center mt-2">Log In</Link>
                     </div> 
                 }
             </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/ContextComp'
+import Photo from '../../assets/images/welcome.svg'
 
 const Signup = (props) => {
 
@@ -42,36 +43,47 @@ const Signup = (props) => {
 
     return (
         <div className="login">
+            <div className="welcomeSection">
+                <img alt="welcome" src={Photo}/>
+            </div>
             <div className="loginContainer">
                 <p className="errorMsg">{error}</p> 
                 <form onSubmit={handleSubmit}>
-                    <label>Username</label>
+                    
+                <h1>Create Account</h1>
+
+                    <div className="inputFields">
                     <input 
                         type="text" 
                         autoFocus 
                         required 
                         value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email..." 
                     /> 
                     
-                    <label>Password</label>
                     <input 
                         type="password" 
                         required 
                         value={password} 
-                        onChange={(e) => setPassword(e.target.value)} 
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password..." 
                     />
 
-                    <label>Confirm Password</label>
                     <input 
                         type="password" 
                         required 
                         value={confirmPassword} 
-                        onChange={(e) => setConfirmPassword(e.target.value)} 
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Confirm Password..." 
                     /> 
+
+                    </div>
                     <div className="btnContainer">
+                        <div className="btns">
                         <button disabled={loading}>Sign up</button>
-                        <p>Already have an account? <Link to="/login">Log In</Link></p>
+                        </div>
+                        <p>Already have an account? <Link to="/">Log In</Link></p>
                     </div>
                 </form>
             </div>

@@ -39,7 +39,6 @@ const Login = (props) => {
         <div className="login">
 
         <div className="welcomeSection">
-            <h1>Welcome</h1>
             <img alt="welcome" src={Photo}/>
         </div>
             <div className="loginContainer">
