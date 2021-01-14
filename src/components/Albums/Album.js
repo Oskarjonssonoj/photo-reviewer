@@ -128,48 +128,53 @@ const Album = () => {
 							editAlbumTitle  
 								? 
 								<>
-									<FormControl onChange={handleTitleChange} id="first-name">
+									<div onChange={handleTitleChange} className="titleSection">
 										<div className="album-title">
-											<FormLabel>New Album Name</FormLabel>
+											<p>New Album Name</p>
 											<BsX onClick={cancelEditor} className="editor-icon" />
 										</div>
-										<Input placeholder={album && album.title} />
-									</FormControl>
-									<Button onClick={saveEditAlbumTitle}>Save</Button>
+										<input placeholder={album && album.title} />
+										<button onClick={saveEditAlbumTitle}>Save</button>
+									</div>
 								</>
 								
 								: 
-								
-								<div className="album-title">
-									<h2>{album && album.title}</h2>
-									<BsPen onClick={handleEditAlbumTitle} className="editor-icon" />
-									<p>Edit Title</p>
+
+								<div className="titleSection">
+									<div className="album-title-before">
+										<h2>{album && album.title}</h2>
+										<BsPen onClick={handleEditAlbumTitle} className="editor-icon" />
+										<p>Edit Title</p>
+									</div>
 								</div>
 						}	
 						
 						<div className="imagesSection">
 
-							<UploadImage albumId={albumId} />
+							<div className="leftSection">
+								<UploadImage albumId={albumId} />
+
+								<hr />
+
+								{album.images.length > 0 &&
+									<div className="linkSection">
+										<button 
+											className="inviteLink"
+											disabled={loading} 
+											onClick={handleInvite}
+											>Invite Customer
+										</button>
+										{
+											invite && 
+											<p>{invite}</p>
+										}	
+									</div>
+								}				
+							</div>
 
 							<AllImages images={album.images} />
 
-						</div>
-							
-							{album.images.length > 0 &&
-								<div className="button-wrapper">
-									<Button 
-										className="btn button__secondary"
-										disabled={loading} 
-										onClick={handleInvite}
-										>Invite link
-									</Button>											
-								</div>
-							}	
-
-						{
-							invite && 
-							<p>{invite}</p>
-						}		
+						</div>			
 					</div>
 				</div>
 			}		

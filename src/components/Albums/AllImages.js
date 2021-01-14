@@ -85,10 +85,9 @@ const AllImages = ({ images }) => {
 		<p>{errorText}</p>
 			<div className="images">
 				{images.map(image => (
-					<Col sm={6} md={4} lg={3} key={image.id}>
-						<Card className="imageCard">
-							<a href={image.url} title="Lightbox mode" data-attribute="SRL">
-								<Card.Img variant="top" src={image.url} title={image.name} />
+					<div key={image.id}>
+						<div className="imageCard">
+								<img variant="top" src={image.url} title={image.name} />
 								{currentUser && editAndCreateAlbum &&
 									<input
 										className="mt-4"
@@ -98,7 +97,6 @@ const AllImages = ({ images }) => {
 										onChange={handleCheckedImage}
 									/>
 								}
-							</a>
 							<Card.Body>
 								<Card.Text className="text-center small">
 									{image.name} ({Math.round(image.size/1024)} kb)
@@ -115,8 +113,8 @@ const AllImages = ({ images }) => {
 									)
 								}
 							</Card.Body>
-						</Card>
-					</Col>
+						</div>
+					</div>
 				))}
 			</div>
 			<Row>

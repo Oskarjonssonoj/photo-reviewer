@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
 
-    h2, a, p, button {
+    h2, a, p, button, input {
         font-family: 'Abel', sans-serif;
         margin-bottom: 0;
     }
@@ -28,17 +28,56 @@
             }
         }
 
-        .album-title{
-            display: flex;
-            align-items: center;
-            margin-top: 2rem;
+        .titleSection {
             
-            .editor-icon{
-                cursor: pointer;
-                font-size: 1.2em;
-                margin-left: 1.5rem;
-                margin-right: 0.5rem;
-                color: #222831;
+            .album-title-before {
+                display: flex;
+                align-items: center;
+                margin: 2rem 0 0.5rem 0;
+
+                .editor-icon{
+                    cursor: pointer;
+                    font-size: 1.2em;
+                    margin-left: 1.5rem;
+                    margin-right: 0.5rem;
+                    color: #222831;
+                }
+            }
+
+            .album-title{
+                display: flex;
+                align-items: center;
+                margin: 2rem 0 0.5rem 0;
+                
+                .editor-icon{
+                    cursor: pointer;
+                    font-size: 1.2em;
+                    margin-left: 1.5rem;
+                    margin-right: 0.5rem;
+                    color: #222831;
+                }
+            }
+            
+            input {
+                border: solid lightgray 1px;
+                border-radius: 0.25rem 0rem 0rem 0.25rem;
+                height: 2rem;
+                padding: 0 0.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            button {
+                height: 2rem;
+                width: 4rem;
+                border: 1px solid #324F57;
+                border-radius: 0rem 0.25rem 0.25rem 0rem;
+                background-color: #324F57;
+                color: white;
+                transition: 0.5s;
+                outline: none;
+            }
+            button:hover{
+                background-color: rgb(30, 48, 53);
             }
         }
 
@@ -47,19 +86,56 @@
             justify-content: space-between;
             margin-top: 2rem;
 
-            #upload-image-dropzone-wrapper {
-                display: flex;
-                justify-content: center;
-                flex-direction: column;
-                border: dashed lightgray 2px;
-                border-radius: 0.5rem;
+            .leftSection {
                 width: 30%;
-                margin-top: 0 !important;
-    
-                p {
-                    margin-bottom: 0;
+                
+                #upload-image-dropzone-wrapper {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    border: dashed lightgray 2px;
+                    border-radius: 0.5rem;
+                    margin-top: 0 !important;
+                    margin-bottom: 2.5rem !important;
+                    outline: none;
+                    cursor: pointer;
+                    height: 15rem;
+        
+                    p {
+                        margin-bottom: 0;
+                    }
                 }
+
+                .linkSection {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    flex-wrap: wrap;
+
+                    p {
+                        margin-top: 1rem;
+                        width: 18rem;
+                        word-wrap: break-word;
+                    }
+
+                    .inviteLink{
+                        margin-top: 1rem;
+                        height: 3rem;
+                        width: 9rem;
+                        border: 1px solid lightgray;
+                        border-radius: 0.5rem;
+                        background-color: #324F57;
+                        color: white;
+                        transition: 0.5s;
+                        outline: none;
+                    }
+                    .inviteLink:hover{
+                        background-color: rgb(30, 48, 53);
+                    }
+                }
+
             }
+
 
 
             .allImages {
@@ -70,7 +146,7 @@
                     display: flex;
                     align-items: center;
                     position: absolute;
-                    right: 1rem;
+                    right: 2rem;
                     top: -2rem;
 
                     input {
@@ -86,6 +162,21 @@
                         margin-bottom: 2rem;
                         text-align: center;
                         position: relative;
+                        width: 13rem;
+                        margin-right: 2rem;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                        align-items: center;
+                        border: solid #cfcfcf 1px;
+                        border-radius: 0.25rem;
+
+                        img {
+                            width: 100%;
+                            height: 8rem;
+                            margin: 0;
+                            cursor: pointer;
+                        }
 
                         .deleteImage {
                             background: red;
@@ -100,12 +191,32 @@
                             display: flex;
                             justify-content: center;
                             align-items: center;
+                            outline: none;
 
                             p {
                                 font-size: 0.9rem;
                             }
                         }
                     }
+                }
+            }
+
+            // @media screen and (max-width: 1440px) {
+            //     .allImages {
+            //     width: 75%;
+            //     }
+            // }
+        }
+    }
+
+    @media screen and (max-width: 1520px) {
+        .albumSection {
+            margin: 2rem 2rem 4rem 10rem;
+
+            .allImages {
+
+                .editAlbum {
+                    right: 2rem;
                 }
             }
         }

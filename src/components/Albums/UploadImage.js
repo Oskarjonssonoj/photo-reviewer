@@ -58,7 +58,7 @@ const UploadImage = ({ albumId }) => {
 
 			{uploadProgress !== null && (<ProgressBar variant="success" animated now={uploadProgress} />)}
 
-			{message && (<Alert variant={message.error ? 'warning' : 'success'}>{message.text}</Alert>)}
+			{message && (<Alert variant={message.error && 'warning'}>{message.text}</Alert>)}
 		</div>
 	)
 }
