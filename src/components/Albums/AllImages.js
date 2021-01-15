@@ -83,7 +83,7 @@ const AllImages = ({ images }) => {
 		</div>
 		<SRLWrapper>
 		<p>{errorText}</p>
-			<div className="images">
+			<div className="imagesDisplay">
 				{images.map(image => (
 					<div key={image.id}>
 						<div className="imageCard">
