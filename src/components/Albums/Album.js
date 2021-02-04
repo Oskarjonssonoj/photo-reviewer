@@ -8,6 +8,7 @@ import UploadImage from './UploadImage'
 import { useAuth } from '../../contexts/ContextComp'
 import {db} from '../../firebase/firebase'
 import { BsPen, BsX } from "react-icons/bs";
+import { FaRegEdit } from "react-icons/fa";
 import './styles/album.scss'
 import {
 	FormControl,
@@ -143,7 +144,7 @@ const Album = () => {
 								<div className="titleSection">
 									<div className="album-title-before">
 										<h2>{album && album.title}</h2>
-										<BsPen onClick={handleEditAlbumTitle} className="editor-icon" />
+										<FaRegEdit onClick={handleEditAlbumTitle} className="editor-icon" />
 										<p>Edit Title</p>
 									</div>
 								</div>
