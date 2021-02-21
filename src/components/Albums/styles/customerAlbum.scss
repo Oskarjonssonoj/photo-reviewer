@@ -31,10 +31,10 @@
                 font-size: 1.7rem;
                 display: flex;
                 flex-direction: column;
-                #like {
+                .like {
                     color: green;
                 }
-                #dislike {
+                .disliked {
                     color: red;
                 }
             }

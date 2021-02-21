@@ -36,8 +36,10 @@ const AllCustomerImages = ({ images, owner, title }) => {
 	// GENERAL FUNCTIONS -->
 
 	// Handling all the checked boxed and storing in new array
-	const handleLikedCheckedImage = (e, imgUrl) => {
-		e.target.style.color = "green"; 
+	const handleLikedCheckedImage = (e, imgUrl, index) => {
+		// e.target.style.color = "green"; 
+
+		console.log(e.target, index)
 
 		const removeLikeImages = likedImages.filter(name => name !== imgUrl)
 		const removeDisLikeImages = dislikedImages.filter(name => name !== imgUrl)
@@ -47,8 +49,10 @@ const AllCustomerImages = ({ images, owner, title }) => {
 		setLikedImages([...removeLikeImages, imgUrl]);
 	}
 
-	const handleDislikedCheckedImage = (e, imgUrl) => {
-		e.target.style.color = "red"; 
+	const handleDislikedCheckedImage = (e, imgUrl, index) => {
+		// e.target.style.color = "red"; 
+
+		console.log(e.target, index)
 
 		const removeLikeImages = likedImages.filter(name => name !== imgUrl)
 		const removeDisLikeImages = dislikedImages.filter(name => name !== imgUrl)
@@ -84,7 +88,7 @@ const AllCustomerImages = ({ images, owner, title }) => {
 				<>
 					<div className="images">
 						{
-						images.map(image => (
+						images.map((image, index) => (
 							<div key={image.id}>
 								<div className="imageCard">
 									<img variant="top" src={image.url} title={image.name} />
@@ -93,11 +97,11 @@ const AllCustomerImages = ({ images, owner, title }) => {
 												{image.name} ({Math.round(image.size/1024)} kb)
 											</Card.Text>
 											<div className="rate-section">
-												<div className="thumb-button " name={image.url}>
-													<label onClick={(e) => handleLikedCheckedImage(e, image.url)}><HiThumbUp className="like" /></label>
+												<div className="thumb-button" name={image.url}>
+													<label onClick={(e) => handleLikedCheckedImage(e, image.url, index)}><HiThumbUp className={likedImages && likedImages.includes(image.url) ? "like" : ""} id={index} /></label>
 												</div>
 												<div className="thumb-button " name={image.url}>
-													<label name={image.url} onClick={(e) => handleDislikedCheckedImage(e, image.url)}><HiThumbDown className="dislike" /></label>
+													<label name={image.url} onClick={(e) => handleDislikedCheckedImage(e, image.url, index)}><HiThumbDown className={dislikedImages && dislikedImages.includes(image.url) ? "disliked" : ""} id={index} /></label>
 												</div>
 											</div>
 											
