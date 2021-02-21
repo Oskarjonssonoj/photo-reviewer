@@ -10,10 +10,10 @@ import './styles/customerAlbum.scss';
 const AllCustomerImages = ({ images, owner, title }) => {
 
 	// States
+	const [like, setLike] = useState(false)
+	const [dislike, setDislike] = useState(false)
 	const [likedImages, setLikedImages] = useState([])
 	const [dislikedImages, setDislikedImages] = useState([])
-	const [dislikedCheckedImage, setDislikedCheckedImage] = useState({})
-	const [likedCheckedImages, setLikedCheckedImages] = useState({})
 	const [newImageArray, setNewImageArray] = useState(null)
 	const [errorText, setErrorText] = useState(false)
 	const [reviewSelected, setReviewSelected] = useState(false)
@@ -32,36 +32,30 @@ const AllCustomerImages = ({ images, owner, title }) => {
 		} 
 	}, [selectedError, selectedSuccess]);
 
+
 	// GENERAL FUNCTIONS -->
 
 	// Handling all the checked boxed and storing in new array
-	const handleLikedCheckedImage = (e) => {
-	
-		setLikedCheckedImages({...likedCheckedImages, [e.target.name] : e.target.checked })
-	
-		if (likedImages.includes(e.target.name)) {
-			for (let i = 0; i < likedImages.length; i++){     
-				likedImages[i] === e.target.name && likedImages.splice(i, 1) 			
-			}
-		} else {
-			likedImages.push(e.target.name)
-		}
-		setLikedImages(likedImages);
+	const handleLikedCheckedImage = (e, imgUrl) => {
+		e.target.style.color = "green"; 
+
+		const removeLikeImages = likedImages.filter(name => name !== imgUrl)
+		const removeDisLikeImages = dislikedImages.filter(name => name !== imgUrl)
+
+
+		setDislikedImages(removeDisLikeImages)
+		setLikedImages([...removeLikeImages, imgUrl]);
 	}
-		
-	// Handling all the checked boxed and storing in new array
-	const handleDislikedCheckedImage = (e) => {
-		
-		setDislikedCheckedImage({...dislikedCheckedImage, [e.target.name] : e.target.checked })
-	
-		if (dislikedImages.includes(e.target.name)) {
-			for (let i = 0; i < dislikedImages.length; i++){     
-				dislikedImages[i] === e.target.name && dislikedImages.splice(i, 1) 			
-			}
-		} else {
-			dislikedImages.push(e.target.name)
-		}
-		setDislikedImages(dislikedImages);
+
+	const handleDislikedCheckedImage = (e, imgUrl) => {
+		e.target.style.color = "red"; 
+
+		const removeLikeImages = likedImages.filter(name => name !== imgUrl)
+		const removeDisLikeImages = dislikedImages.filter(name => name !== imgUrl)
+
+
+		setLikedImages(removeLikeImages)
+		setDislikedImages([...removeDisLikeImages, imgUrl])
 	}
 
 	// Create new album based on rated pictures
@@ -99,23 +93,11 @@ const AllCustomerImages = ({ images, owner, title }) => {
 												{image.name} ({Math.round(image.size/1024)} kb)
 											</Card.Text>
 											<div className="rate-section">
-												<div className="thumb-button">
-													<label><HiThumbUp id="like" /></label>
-														<input
-															type="checkbox"
-															name={image.url}
-															checked={likedCheckedImages[image.url]}
-															onChange={handleLikedCheckedImage}
-														/>
+												<div className="thumb-button " name={image.url}>
+													<label onClick={(e) => handleLikedCheckedImage(e, image.url)}><HiThumbUp className="like" /></label>
 												</div>
-												<div className="thumb-button">
-													<label><HiThumbDown id="dislike" /></label>
-													<input
-														type="checkbox"
-														name={image.url}
-														checked={dislikedCheckedImage[image.url]}
-														onChange={handleDislikedCheckedImage}
-													/>
+												<div className="thumb-button " name={image.url}>
+													<label name={image.url} onClick={(e) => handleDislikedCheckedImage(e, image.url)}><HiThumbDown className="dislike" /></label>
 												</div>
 											</div>
 											

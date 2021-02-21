@@ -50,6 +50,8 @@ const useUploadImage = (images, albumId = null) => {
 						type: image.type,
 						size: image.size,
 						url,
+						like: false,
+						dislike: false
 					};
 
 					let collectedImages

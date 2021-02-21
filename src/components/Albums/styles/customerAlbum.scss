@@ -23,66 +23,68 @@
             margin: 0;
             cursor: pointer;
         }
-        .rate-section{
+        .rate-section {
             display: flex;
             justify-content: space-around;
 
-            .thumb-button{
+            .thumb-button {
                 font-size: 1.7rem;
                 display: flex;
                 flex-direction: column;
                 #like {
                     color: green;
                 }
-                #dislike{
+                #dislike {
                     color: red;
                 }
             }
         }
     }
-   
 }
 
-.submit-photo{
+.submit-photo {
     display: flex;
     justify-content: center;
-    button{
+    button {
         margin-top: 2rem;
         height: 3rem;
         width: 20rem;
         border: 1px solid lightgray;
         border-radius: 0.5rem;
-        background-color: #324F57;
+        background-color: #324f57;
         color: white;
         transition: 0.5s;
     }
-    button:hover{
+    button:hover {
         background-color: rgb(30, 48, 53);
     }
 }
 
-
-.album-title{
-    font-family: 'East Sea Dokdo', cursive;
+.album-title {
+    font-family: "East Sea Dokdo", cursive;
     margin: 2rem;
     font-size: 3rem;
 }
 
-.img-container{
+.img-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    h2, a, p, button, input {
-        font-family: 'Abel', sans-serif;
+    h2,
+    a,
+    p,
+    button,
+    input {
+        font-family: "Abel", sans-serif;
         margin-bottom: 0;
     }
-    .go-back{
+    .go-back {
         display: flex;
         justify-content: flex-start;
     }
-    .like-img{
+    .like-img {
         display: flex;
         margin-bottom: 2rem;
         position: relative;
@@ -91,33 +93,29 @@
         justify-content: center;
         align-items: center;
 
-
         img {
-            width: 13rem;;
+            width: 13rem;
             height: 8rem;
             margin-right: 1rem;
             cursor: pointer;
         }
-        .img-div{
+        .img-div {
             display: flex;
         }
     }
 
-    button{
+    button {
         margin-bottom: 2rem;
         margin-top: 2rem;
         height: 3rem;
         width: 20rem;
         border: 1px solid lightgray;
         border-radius: 0.5rem;
-        background-color: #324F57;
+        background-color: #324f57;
         color: white;
         transition: 0.5s;
     }
-    button:hover{
+    button:hover {
         background-color: rgb(30, 48, 53);
     }
-        
-    }
-
-
+}
